@@ -1,6 +1,5 @@
 import React from 'react';
 import { useAuth } from '../context/AuthContext';
-import MascotIllustration from './illustrations/MascotIllustration';
 import {
   LayoutDashboard,
   Briefcase,
@@ -180,31 +179,6 @@ export default function Sidebar({ activePage, setActivePage, isOpen, onClose }) 
                 </button>
               );
             })}
-          </div>
-
-          {/* CareerBuddy Mini Widget in Sidebar */}
-          <div className="p-3 mx-3 my-4 bg-gradient-to-br from-purple-950 via-indigo-950 to-purple-900 rounded-2xl text-white shadow-md relative overflow-hidden border border-purple-800/40">
-            <div className="flex items-center space-x-2.5 relative z-10">
-              <div className="w-10 h-10 rounded-xl bg-white/10 p-0.5 flex items-center justify-center shrink-0 border border-white/20">
-                <MascotIllustration className="w-8 h-8" showGlow={false} />
-              </div>
-              <div className="min-w-0">
-                <div className="text-xs font-black text-white flex items-center space-x-1">
-                  <span>CareerBuddy</span>
-                  <span className="text-[9px] bg-pink-500/40 text-pink-200 px-1 rounded">AI</span>
-                </div>
-                <div className="text-[10px] text-purple-200/90 truncate">
-                  Need placement advice?
-                </div>
-              </div>
-            </div>
-            <button
-              onClick={() => handleNavClick('interview-coach')}
-              className="mt-2.5 w-full py-1.5 bg-white text-indigo-950 hover:bg-indigo-50 font-bold text-[10px] rounded-lg transition-colors flex items-center justify-center space-x-1"
-            >
-              <span>Ask CareerBuddy</span>
-              <Sparkles className="w-3 h-3 text-pink-500" />
-            </button>
           </div>
         </div>
 

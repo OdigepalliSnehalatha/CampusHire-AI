@@ -40,7 +40,7 @@ export default function CareerBuddyChat() {
           return [
             {
               ...prev[0],
-              text: `Hi ${name}! ✨\n\nI'm **CareerBuddy**! Your friendly AI placement companion. 🎓\n\nI'm here to cheer you on, review your resume, practice interviews, and guide your roadmap.\n\nWhat would you like help with today?`
+              text: `Hi ${name}! 🐰✨\n\nI'm **CareerBuddy**! Your friendly AI scholar rabbit companion wearing my graduation cap! 🎓\n\nI'm here to cheer you on, review your resume, practice interviews, and guide your roadmap.\n\nWhat would you like help with today?`
             }
           ];
         }
@@ -48,6 +48,17 @@ export default function CareerBuddyChat() {
       });
     }
   }, [user]);
+
+  useEffect(() => {
+    const handleOpenEvent = (e) => {
+      setIsOpen(true);
+      if (e.detail?.query) {
+        handleSend(e.detail.query);
+      }
+    };
+    window.addEventListener('open-career-buddy', handleOpenEvent);
+    return () => window.removeEventListener('open-career-buddy', handleOpenEvent);
+  }, []);
 
   useEffect(() => {
     if (isOpen) {
