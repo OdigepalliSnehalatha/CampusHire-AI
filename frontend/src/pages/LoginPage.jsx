@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import MascotIllustration from '../components/illustrations/MascotIllustration';
 import { ArrowRight, Lock, Mail, User, Sparkles, GraduationCap, Building2, ShieldCheck, Heart } from 'lucide-react';
 
 export default function LoginPage({ setActivePage }) {
@@ -73,22 +72,48 @@ export default function LoginPage({ setActivePage }) {
             </div>
           </div>
 
-          {/* Adorable Cute Companion Mascot */}
+          {/* Professional Career & Placement Growth Illustration */}
           <div className="my-6 text-center relative z-10 space-y-4">
-            <div className="inline-block p-4 sm:p-5 rounded-3xl bg-white/10 border border-white/25 backdrop-blur-md shadow-2xl">
-              <MascotIllustration className="w-28 h-28 sm:w-36 sm:h-36" />
+            <div className="inline-block p-6 rounded-3xl bg-white/10 border border-white/20 backdrop-blur-md shadow-2xl">
+              <div className="w-28 h-28 sm:w-32 sm:h-32 mx-auto flex items-center justify-center">
+                <svg viewBox="0 0 120 120" fill="none" className="w-full h-full drop-shadow-md">
+                  <circle cx="60" cy="60" r="54" fill="url(#loginGlow)" fillOpacity="0.3" stroke="#818CF8" strokeWidth="2" strokeDasharray="4 4" />
+                  <defs>
+                    <radialGradient id="loginGlow" cx="50%" cy="50%" r="50%">
+                      <stop offset="0%" stopColor="#818CF8" />
+                      <stop offset="100%" stopColor="#4F46E5" stopOpacity="0" />
+                    </radialGradient>
+                    <linearGradient id="gradCapGrad" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%" stopColor="#FFFFFF" />
+                      <stop offset="100%" stopColor="#C7D2FE" />
+                    </linearGradient>
+                  </defs>
+                  {/* Mortarboard Graduation Cap */}
+                  <polygon points="60,28 92,44 60,60 28,44" fill="url(#gradCapGrad)" stroke="#C7D2FE" strokeWidth="2" />
+                  <path d="M44,52 L44,68 Q60,78 76,68 L76,52" fill="#4338CA" stroke="#818CF8" strokeWidth="1.5" />
+                  <circle cx="60" cy="44" r="3" fill="#FDE047" />
+                  <path d="M60,44 Q80,48 84,62" stroke="#FDE047" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+                  <polygon points="84,62 88,72 80,72" fill="#FDE047" />
+                  {/* Career Growth Bars & Success Trajectory */}
+                  <rect x="36" y="80" width="14" height="20" rx="3" fill="#6366F1" opacity="0.9" />
+                  <rect x="53" y="72" width="14" height="28" rx="3" fill="#818CF8" opacity="0.9" />
+                  <rect x="70" y="64" width="14" height="36" rx="3" fill="#34D399" opacity="0.9" />
+                  <path d="M38,76 L55,68 L76,58" stroke="#FDE047" strokeWidth="2.5" strokeLinecap="round" />
+                  <circle cx="76" cy="58" r="3" fill="#FDE047" />
+                </svg>
+              </div>
             </div>
 
             <div className="space-y-2 max-w-xs mx-auto">
-              <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-pink-500/25 border border-pink-400/40 text-pink-100 text-xs font-semibold">
-                <Heart className="w-3.5 h-3.5 text-pink-300 fill-pink-300" />
-                <span>Meet CareerBuddy</span>
+              <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-indigo-500/25 border border-indigo-400/40 text-indigo-100 text-xs font-semibold">
+                <Sparkles className="w-3.5 h-3.5 text-indigo-300" />
+                <span>Smart Placement Portal</span>
               </div>
-              <blockquote className="text-base sm:text-lg font-black leading-snug tracking-tight text-indigo-50">
+              <blockquote className="text-base sm:text-lg font-black leading-snug tracking-tight text-white">
                 “Your dream career starts with one step.”
               </blockquote>
               <p className="text-xs text-indigo-200/90 leading-relaxed font-normal">
-                Your loving AI placement companion is waiting to guide your roadmap, boost your resume, and cheer you on! ✨
+                Discover campus placement drives, track recruitment pipelines, and prepare with tailored career guidance.
               </p>
             </div>
           </div>

@@ -123,9 +123,6 @@ function AppContent() {
         {renderCurrentPage()}
       </main>
 
-      {/* Persistent Floating AI Career Assistant */}
-      <CareerBuddyChat />
-
       {/* Modern Footer */}
       <Footer setActivePage={setActivePage} />
     </div>

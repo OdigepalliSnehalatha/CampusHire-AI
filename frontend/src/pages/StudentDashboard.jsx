@@ -7,7 +7,6 @@ import {
   INITIAL_ACHIEVEMENTS,
   CAREER_TIPS
 } from '../services/mockData';
-import MascotIllustration from '../components/illustrations/MascotIllustration';
 import {
   Briefcase,
   FileText,
@@ -24,8 +23,7 @@ import {
   RefreshCw,
   ExternalLink,
   Building,
-  GraduationCap,
-  Send
+  GraduationCap
 } from 'lucide-react';
 
 export default function StudentDashboard({ setActivePage, onOpenChat }) {
@@ -35,7 +33,6 @@ export default function StudentDashboard({ setActivePage, onOpenChat }) {
   const [applications, setApplications] = useState(INITIAL_APPLICATIONS);
   const [achievements, setAchievements] = useState(INITIAL_ACHIEVEMENTS);
   const [tipIndex, setTipIndex] = useState(0);
-  const [buddyQuery, setBuddyQuery] = useState('');
 
   useEffect(() => {
     if (user) {
@@ -112,86 +109,29 @@ export default function StudentDashboard({ setActivePage, onOpenChat }) {
             <p className="text-indigo-200 text-sm sm:text-base font-normal">
               Ready to take your next career step?
             </p>
+            <div className="pt-1 flex items-center space-x-2 text-xs text-emerald-300 font-medium">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+              <span>
+                Performance Encouragement: CGPA {profile?.cgpa || 8.4} qualifies you for 95%+ top drives! CareerBuddy is ready to guide you.
+              </span>
+            </div>
           </div>
 
-          {/* Rabbit Scholar Buddy Mascot + Equal-Width Type Bar */}
-          <div className="w-full sm:w-80 md:w-88 flex flex-col items-center">
-            {/* The Buddy Picture Box (Rabbit with Graduation Cap) */}
-            <div className="w-full bg-white/15 backdrop-blur-md border border-white/25 rounded-2xl p-3.5 shadow-xl flex flex-col items-center text-center relative overflow-hidden group">
-              <div className="flex items-center space-x-1.5 self-center bg-pink-500/30 border border-pink-400/40 text-pink-200 text-[10px] font-black px-2.5 py-0.5 rounded-full mb-1">
-                <Sparkles className="w-2.5 h-2.5 text-pink-300" />
-                <span>CareerBuddy • Scholar Companion 🐰🎓</span>
+          {/* Placement Season Active Stats */}
+          <div className="flex items-center space-x-4 bg-white/10 border border-white/20 backdrop-blur-md rounded-2xl p-4 shadow-sm text-xs">
+            <div className="space-y-1">
+              <div className="text-[10px] uppercase tracking-wider font-extrabold text-indigo-200">
+                Placement Cell 2026
               </div>
-
-              {/* Rabbit Mascot Picture */}
-              <div className="w-32 h-32 sm:w-36 sm:h-36 flex items-center justify-center my-0.5 transition-transform group-hover:scale-105 duration-300">
-                <MascotIllustration className="w-full h-full" showGlow={true} />
+              <div className="font-bold text-white flex items-center space-x-2">
+                <span>Active Drives:</span>
+                <span className="font-mono bg-emerald-500/30 text-emerald-200 px-2 py-0.5 rounded-full font-black">
+                  {eligibleCount} Eligible
+                </span>
               </div>
-
-              {/* Friendly Quote */}
-              <p className="text-[11px] text-indigo-100 font-medium leading-tight">
-                "Hi {firstName}! Ask me anything about your placements, resume, or interview prep!"
-              </p>
-            </div>
-
-            {/* Type Bar directly below buddy picture with EQUAL width */}
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                if (!buddyQuery.trim()) return;
-                const q = buddyQuery.trim();
-                setBuddyQuery('');
-                window.dispatchEvent(new CustomEvent('open-career-buddy', { detail: { query: q } }));
-              }}
-              className="w-full mt-2.5 flex items-center bg-white rounded-xl shadow-lg border-2 border-indigo-200/90 p-1 focus-within:border-pink-400 focus-within:ring-2 focus-within:ring-pink-300 transition-all"
-            >
-              <input
-                type="text"
-                value={buddyQuery}
-                onChange={(e) => setBuddyQuery(e.target.value)}
-                placeholder="Ask CareerBuddy anything..."
-                className="flex-1 px-3 py-2 text-xs text-slate-800 placeholder-slate-400 bg-transparent focus:outline-none font-medium"
-              />
-              <button
-                type="submit"
-                disabled={!buddyQuery.trim()}
-                className="px-3.5 py-2 bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 hover:from-pink-600 hover:to-indigo-700 disabled:opacity-40 text-white rounded-lg text-xs font-bold flex items-center space-x-1 shrink-0 transition-transform active:scale-95 shadow-xs"
-              >
-                <span>Ask</span>
-                <Send className="w-3 h-3" />
-              </button>
-            </form>
-
-            {/* Quick Suggestion Chips matching the width */}
-            <div className="w-full mt-2 flex items-center justify-between gap-1 text-[10px]">
-              <button
-                type="button"
-                onClick={() => window.dispatchEvent(new CustomEvent('open-career-buddy', { detail: { query: '💼 Find suitable jobs for my profile' } }))}
-                className="flex-1 py-1 px-1 bg-white/10 hover:bg-white/20 text-indigo-100 rounded-lg text-center font-semibold truncate border border-white/15 transition-colors"
-              >
-                💼 Jobs
-              </button>
-              <button
-                type="button"
-                onClick={() => window.dispatchEvent(new CustomEvent('open-career-buddy', { detail: { query: '📄 How can I improve my resume for ATS?' } }))}
-                className="flex-1 py-1 px-1 bg-white/10 hover:bg-white/20 text-indigo-100 rounded-lg text-center font-semibold truncate border border-white/15 transition-colors"
-              >
-                📄 Resume
-              </button>
-              <button
-                type="button"
-                onClick={() => window.dispatchEvent(new CustomEvent('open-career-buddy', { detail: { query: '🎯 What are my missing skills for Java Developer?' } }))}
-                className="flex-1 py-1 px-1 bg-white/10 hover:bg-white/20 text-indigo-100 rounded-lg text-center font-semibold truncate border border-white/15 transition-colors"
-              >
-                🎯 Skills
-              </button>
-              <button
-                type="button"
-                onClick={() => window.dispatchEvent(new CustomEvent('open-career-buddy', { detail: { query: '🎤 Give me common Java interview questions' } }))}
-                className="flex-1 py-1 px-1 bg-white/10 hover:bg-white/20 text-indigo-100 rounded-lg text-center font-semibold truncate border border-white/15 transition-colors"
-              >
-                🎤 Interview
-              </button>
+              <div className="text-[11px] text-indigo-200">
+                Department: <span className="text-white font-semibold">{profile?.department || 'CSE'}</span> • CGPA <span className="text-white font-bold">{profile?.cgpa || 8.4}</span>
+              </div>
             </div>
           </div>
         </div>
