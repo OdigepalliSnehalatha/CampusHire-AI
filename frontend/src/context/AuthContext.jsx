@@ -14,8 +14,8 @@ export function AuthProvider({ children }) {
         return null;
       }
     }
-    // Default to student demo user for immediate rich showcase
-    return DEMO_USERS.student;
+    // No direct auto-login: user must explicitly log in via login page!
+    return null;
   });
 
   const [loading, setLoading] = useState(false);
@@ -35,24 +35,24 @@ export function AuthProvider({ children }) {
       if (res && res.token) {
         setToken(res.token);
         setUser(res.user);
-        return { success: true };
+        return { success: true, user: res.user };
       }
     } catch (err) {
-      // Offline fallback: check demo credentials
-      if (email === 'student@campushire.ai') {
+      // Demo authentication validation
+      if (email === 'student@campushire.ai' && password === 'password123') {
         setUser(DEMO_USERS.student);
         setToken('demo-token-student');
-        return { success: true };
-      } else if (email === 'officer@campushire.ai') {
+        return { success: true, user: DEMO_USERS.student };
+      } else if (email === 'officer@campushire.ai' && password === 'password123') {
         setUser(DEMO_USERS.officer);
         setToken('demo-token-officer');
-        return { success: true };
-      } else if (email === 'recruiter@campushire.ai') {
+        return { success: true, user: DEMO_USERS.officer };
+      } else if (email === 'recruiter@campushire.ai' && password === 'password123') {
         setUser(DEMO_USERS.recruiter);
         setToken('demo-token-recruiter');
-        return { success: true };
+        return { success: true, user: DEMO_USERS.recruiter };
       }
-      throw err;
+      throw new Error('Invalid email or password. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -65,16 +65,16 @@ export function AuthProvider({ children }) {
       if (res && res.token) {
         setToken(res.token);
         setUser(res.user);
-        return { success: true };
+        return { success: true, user: res.user };
       }
     } catch (err) {
-      // Fallback
+      // Fallback registered user creation
       const newUser = {
         id: Date.now(),
         email: userData.email,
         fullName: userData.fullName,
         role: userData.role,
-        department: userData.department || 'Computer Science',
+        department: userData.department || 'Computer Science and Engineering',
         cgpa: userData.cgpa || 8.0,
         graduationYear: userData.graduationYear || 2026,
         targetRole: userData.targetRole || 'Software Engineer',
@@ -82,7 +82,7 @@ export function AuthProvider({ children }) {
       };
       setUser(newUser);
       setToken('demo-token-registered');
-      return { success: true };
+      return { success: true, user: newUser };
     } finally {
       setLoading(false);
     }
@@ -94,15 +94,8 @@ export function AuthProvider({ children }) {
     localStorage.removeItem('campushire_user');
   };
 
-  const switchDemoUser = (roleType) => {
-    if (DEMO_USERS[roleType]) {
-      setUser(DEMO_USERS[roleType]);
-      setToken(`demo-token-${roleType}`);
-    }
-  };
-
   return (
-    <AuthContext.Provider value={{ user, setUser, login, register, logout, switchDemoUser, loading }}>
+    <AuthContext.Provider value={{ user, setUser, login, register, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );

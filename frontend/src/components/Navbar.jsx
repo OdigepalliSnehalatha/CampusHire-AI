@@ -22,7 +22,7 @@ import {
 } from 'lucide-react';
 
 export default function Navbar({ activePage, setActivePage }) {
-  const { user, logout, switchDemoUser } = useAuth();
+  const { user, logout } = useAuth();
   const [notifications, setNotifications] = useState(INITIAL_NOTIFICATIONS);
   const [showNotifications, setShowNotifications] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
@@ -95,7 +95,10 @@ export default function Navbar({ activePage, setActivePage }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="flex items-center space-x-3 cursor-pointer" onClick={() => setActivePage(user ? (user.role === 'PLACEMENT_OFFICER' ? 'officer-dashboard' : user.role === 'RECRUITER' ? 'recruiter-dashboard' : 'dashboard') : 'landing')}>
+          <div
+            className="flex items-center space-x-3 cursor-pointer"
+            onClick={() => setActivePage(user ? (user.role === 'PLACEMENT_OFFICER' ? 'officer-dashboard' : user.role === 'RECRUITER' ? 'recruiter-dashboard' : 'dashboard') : 'landing')}
+          >
             <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-700 to-purple-600 flex items-center justify-center text-white shadow-md shadow-indigo-500/20">
               <Sparkles className="w-5 h-5 text-indigo-100" />
             </div>
@@ -129,44 +132,7 @@ export default function Navbar({ activePage, setActivePage }) {
 
           {/* Right Action Controls */}
           <div className="flex items-center space-x-2 sm:space-x-3">
-            {/* Quick Demo Role Switcher (Crucial for evaluation!) */}
-            <div className="hidden sm:flex items-center bg-slate-100/90 rounded-full p-0.5 border border-slate-200 text-xs">
-              <button
-                onClick={() => { switchDemoUser('student'); setActivePage('dashboard'); }}
-                className={`px-2.5 py-1 rounded-full font-medium transition-all ${
-                  user?.role === 'STUDENT'
-                    ? 'bg-white text-indigo-700 shadow-xs font-bold'
-                    : 'text-slate-600 hover:text-slate-900'
-                }`}
-                title="Switch to Student View (Alex Chen)"
-              >
-                👨‍🎓 Student
-              </button>
-              <button
-                onClick={() => { switchDemoUser('officer'); setActivePage('officer-dashboard'); }}
-                className={`px-2.5 py-1 rounded-full font-medium transition-all ${
-                  user?.role === 'PLACEMENT_OFFICER'
-                    ? 'bg-white text-indigo-700 shadow-xs font-bold'
-                    : 'text-slate-600 hover:text-slate-900'
-                }`}
-                title="Switch to Placement Officer View (Dr. Sharma)"
-              >
-                👔 Officer
-              </button>
-              <button
-                onClick={() => { switchDemoUser('recruiter'); setActivePage('recruiter-dashboard'); }}
-                className={`px-2.5 py-1 rounded-full font-medium transition-all ${
-                  user?.role === 'RECRUITER'
-                    ? 'bg-white text-indigo-700 shadow-xs font-bold'
-                    : 'text-slate-600 hover:text-slate-900'
-                }`}
-                title="Switch to Recruiter View (Sarah Jenkins)"
-              >
-                🏢 Recruiter
-              </button>
-            </div>
-
-            {/* Notification Bell */}
+            {/* Notification Bell (Only when logged in) */}
             {user && (
               <div className="relative">
                 <button
@@ -223,7 +189,7 @@ export default function Navbar({ activePage, setActivePage }) {
               </div>
             )}
 
-            {/* User Profile Chip / Login Button */}
+            {/* Authenticated User Menu or Sign In Button */}
             {user ? (
               <div className="relative">
                 <button
@@ -249,16 +215,18 @@ export default function Navbar({ activePage, setActivePage }) {
                       <div className="text-[11px] text-slate-500 truncate">{user.email}</div>
                     </div>
 
-                    <button
-                      onClick={() => { setActivePage('profile'); setShowUserMenu(false); }}
-                      className="w-full text-left px-4 py-2 text-xs text-slate-700 hover:bg-slate-50 flex items-center space-x-2"
-                    >
-                      <User className="w-4 h-4 text-slate-400" />
-                      <span>My Profile</span>
-                    </button>
+                    {user.role === 'STUDENT' && (
+                      <button
+                        onClick={() => { setActivePage('profile'); setShowUserMenu(false); }}
+                        className="w-full text-left px-4 py-2 text-xs text-slate-700 hover:bg-slate-50 flex items-center space-x-2"
+                      >
+                        <User className="w-4 h-4 text-slate-400" />
+                        <span>My Profile</span>
+                      </button>
+                    )}
 
                     <button
-                      onClick={() => { logout(); setActivePage('landing'); setShowUserMenu(false); }}
+                      onClick={() => { logout(); setActivePage('login'); setShowUserMenu(false); }}
                       className="w-full text-left px-4 py-2 text-xs text-rose-600 hover:bg-rose-50 flex items-center space-x-2"
                     >
                       <LogOut className="w-4 h-4 text-rose-400" />
@@ -271,7 +239,7 @@ export default function Navbar({ activePage, setActivePage }) {
               <div className="flex items-center space-x-2">
                 <button
                   onClick={() => setActivePage('login')}
-                  className="px-3 py-1.5 text-xs font-bold text-slate-700 hover:text-indigo-600 transition-colors"
+                  className="px-3.5 py-2 text-xs font-bold text-slate-700 hover:text-indigo-600 transition-colors"
                 >
                   Sign In
                 </button>
@@ -279,7 +247,7 @@ export default function Navbar({ activePage, setActivePage }) {
                   onClick={() => setActivePage('login')}
                   className="px-4 py-2 text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 rounded-xl shadow-md transition-colors"
                 >
-                  Get Started
+                  Log In / Register
                 </button>
               </div>
             )}
@@ -308,26 +276,26 @@ export default function Navbar({ activePage, setActivePage }) {
                 {item.label}
               </button>
             ))}
-            <div className="pt-2 border-t border-slate-100 flex flex-wrap gap-2 px-2">
-              <button
-                onClick={() => { switchDemoUser('student'); setActivePage('dashboard'); setShowMobileMenu(false); }}
-                className="text-xs bg-slate-100 px-3 py-1 rounded-full font-medium"
-              >
-                👨‍🎓 Alex (Student)
-              </button>
-              <button
-                onClick={() => { switchDemoUser('officer'); setActivePage('officer-dashboard'); setShowMobileMenu(false); }}
-                className="text-xs bg-slate-100 px-3 py-1 rounded-full font-medium"
-              >
-                👔 Dr. Sharma (Officer)
-              </button>
-              <button
-                onClick={() => { switchDemoUser('recruiter'); setActivePage('recruiter-dashboard'); setShowMobileMenu(false); }}
-                className="text-xs bg-slate-100 px-3 py-1 rounded-full font-medium"
-              >
-                🏢 Sarah (Recruiter)
-              </button>
-            </div>
+
+            {!user ? (
+              <div className="pt-2 border-t border-slate-100 px-2">
+                <button
+                  onClick={() => { setActivePage('login'); setShowMobileMenu(false); }}
+                  className="w-full py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-xl shadow-xs"
+                >
+                  Sign In to CampusHire
+                </button>
+              </div>
+            ) : (
+              <div className="pt-2 border-t border-slate-100 px-2">
+                <button
+                  onClick={() => { logout(); setActivePage('login'); setShowMobileMenu(false); }}
+                  className="w-full py-2 text-rose-600 font-bold text-xs rounded-xl bg-rose-50"
+                >
+                  Log Out
+                </button>
+              </div>
+            )}
           </div>
         )}
       </div>

@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import MascotIllustration from '../components/illustrations/MascotIllustration';
-import { ArrowRight, Lock, Mail, User, ShieldCheck, Sparkles, Building, GraduationCap, Briefcase } from 'lucide-react';
+import { ArrowRight, Lock, Mail, User, Sparkles, GraduationCap, Building2, ShieldCheck, Heart } from 'lucide-react';
 
 export default function LoginPage({ setActivePage }) {
-  const { login, register, switchDemoUser } = useAuth();
+  const { login, register } = useAuth();
   const [isRegistering, setIsRegistering] = useState(false);
-  const [email, setEmail] = useState('student@campushire.ai');
-  const [password, setPassword] = useState('password123');
-  const [fullName, setFullName] = useState('Alex Chen');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [fullName, setFullName] = useState('');
   const [role, setRole] = useState('STUDENT');
   const [department, setDepartment] = useState('Computer Science and Engineering');
   const [error, setError] = useState('');
@@ -17,113 +17,133 @@ export default function LoginPage({ setActivePage }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    setSubmitting(true);
 
+    if (!email.trim() || !password.trim()) {
+      setError('Please enter both email and password.');
+      return;
+    }
+
+    setSubmitting(true);
     try {
       if (isRegistering) {
-        await register({ fullName, email, password, role, department });
+        const res = await register({ fullName, email, password, role, department });
+        if (res?.user?.role === 'PLACEMENT_OFFICER') setActivePage('officer-dashboard');
+        else if (res?.user?.role === 'RECRUITER') setActivePage('recruiter-dashboard');
+        else setActivePage('dashboard');
       } else {
-        await login(email, password);
+        const res = await login(email, password);
+        if (res?.user?.role === 'PLACEMENT_OFFICER') setActivePage('officer-dashboard');
+        else if (res?.user?.role === 'RECRUITER') setActivePage('recruiter-dashboard');
+        else setActivePage('dashboard');
       }
-      setActivePage(role === 'PLACEMENT_OFFICER' ? 'officer-dashboard' : role === 'RECRUITER' ? 'recruiter-dashboard' : 'dashboard');
     } catch (err) {
-      setError(err.message || 'Authentication failed. Please verify credentials.');
+      setError(err.message || 'Invalid email or password. Please try again.');
     } finally {
       setSubmitting(false);
     }
   };
 
-  const handleQuickDemo = (roleKey, targetPage) => {
-    switchDemoUser(roleKey);
-    setActivePage(targetPage);
+  // Helper function to fill form credentials for user convenience
+  const fillSampleCredentials = (sampleEmail, sampleRole) => {
+    setEmail(sampleEmail);
+    setPassword('password123');
+    setRole(sampleRole);
+    setError('');
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 sm:p-6 lg:p-8 bg-slate-100/70">
-      <div className="max-w-5xl w-full bg-white rounded-3xl shadow-2xl border border-slate-200/80 overflow-hidden grid grid-cols-1 lg:grid-cols-12 min-h-[640px]">
-        {/* Left Side: Illustration & Motivational Showcase */}
-        <div className="lg:col-span-5 bg-gradient-to-br from-indigo-900 via-indigo-800 to-purple-900 text-white p-8 sm:p-10 flex flex-col justify-between relative overflow-hidden">
-          {/* Subtle Glows */}
-          <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute bottom-0 left-0 w-64 h-64 bg-purple-500/20 rounded-full blur-3xl pointer-events-none" />
+    <div className="min-h-screen flex items-center justify-center p-4 sm:p-6 lg:p-8 bg-gradient-to-br from-indigo-50/70 via-purple-50/50 to-pink-50/60">
+      <div className="max-w-5xl w-full bg-white rounded-3xl shadow-2xl border border-slate-200/80 overflow-hidden grid grid-cols-1 lg:grid-cols-12 min-h-[660px]">
+        {/* Left Side: Cute CareerBuddy Illusion & Motivational Showcase */}
+        <div className="lg:col-span-5 bg-gradient-to-br from-indigo-950 via-purple-900 to-indigo-900 text-white p-8 sm:p-10 flex flex-col justify-between relative overflow-hidden">
+          {/* Soft Pastel Background Ambient Glows */}
+          <div className="absolute top-0 right-0 w-64 h-64 bg-pink-500/20 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-indigo-500/25 rounded-full blur-3xl pointer-events-none" />
 
           {/* Top Branding */}
           <div className="relative z-10 space-y-2">
             <div className="flex items-center space-x-2.5">
-              <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center backdrop-blur-md border border-white/20">
-                <Sparkles className="w-5 h-5 text-indigo-300" />
+              <div className="w-10 h-10 rounded-2xl bg-white/10 flex items-center justify-center backdrop-blur-md border border-white/20 shadow-inner">
+                <Sparkles className="w-5 h-5 text-pink-300" />
               </div>
-              <span className="text-xl font-black tracking-tight">CampusHire AI</span>
+              <div>
+                <span className="text-xl font-black tracking-tight text-white">CampusHire AI</span>
+                <span className="block text-[10px] text-pink-200 font-medium">Smart Placement & Guidance</span>
+              </div>
             </div>
-            <p className="text-xs text-indigo-200 font-medium">Smart Placement & Career Guidance</p>
           </div>
 
-          {/* Central Career Mascot Showcase */}
-          <div className="my-8 text-center relative z-10 space-y-4">
-            <div className="inline-block p-4 rounded-3xl bg-white/10 border border-white/20 backdrop-blur-md shadow-xl">
-              <MascotIllustration className="w-24 h-24 sm:w-28 sm:h-28" />
+          {/* Adorable Cute Companion Mascot */}
+          <div className="my-6 text-center relative z-10 space-y-4">
+            <div className="inline-block p-4 sm:p-5 rounded-3xl bg-white/10 border border-white/25 backdrop-blur-md shadow-2xl">
+              <MascotIllustration className="w-28 h-28 sm:w-36 sm:h-36" />
             </div>
 
             <div className="space-y-2 max-w-xs mx-auto">
-              <blockquote className="text-base sm:text-lg font-bold leading-snug tracking-tight text-indigo-100">
+              <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-pink-500/25 border border-pink-400/40 text-pink-100 text-xs font-semibold">
+                <Heart className="w-3.5 h-3.5 text-pink-300 fill-pink-300" />
+                <span>Meet CareerBuddy</span>
+              </div>
+              <blockquote className="text-base sm:text-lg font-black leading-snug tracking-tight text-indigo-50">
                 “Your dream career starts with one step.”
               </blockquote>
-              <p className="text-xs text-indigo-300 leading-relaxed font-normal">
-                Let CareerBuddy AI organize your roadmap, optimize your resume ATS score, and match you with verified placement drives.
+              <p className="text-xs text-indigo-200/90 leading-relaxed font-normal">
+                Your loving AI placement companion is waiting to guide your roadmap, boost your resume, and cheer you on! ✨
               </p>
             </div>
           </div>
 
-          {/* Quick Demo Switcher inside Left Panel */}
-          <div className="relative z-10 pt-4 border-t border-indigo-700/60 space-y-2">
-            <div className="text-[11px] font-bold text-indigo-200 uppercase tracking-wider">
-              1-Click Instant Demo Login:
+          {/* Sample Credentials Card for easy reference */}
+          <div className="relative z-10 pt-4 border-t border-white/15 space-y-2.5">
+            <div className="text-[11px] font-bold text-pink-200 uppercase tracking-wider flex items-center justify-between">
+              <span>Quick Sample Credentials:</span>
+              <span className="text-[10px] text-indigo-300 font-normal">Click to pre-fill</span>
             </div>
             <div className="grid grid-cols-3 gap-2">
               <button
                 type="button"
-                onClick={() => handleQuickDemo('student', 'dashboard')}
+                onClick={() => fillSampleCredentials('student@campushire.ai', 'STUDENT')}
                 className="px-2 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-xs font-semibold text-center transition-all flex flex-col items-center"
               >
                 <span className="text-sm">👨‍🎓</span>
-                <span className="text-[10px] text-indigo-100">Student</span>
+                <span className="text-[10px] text-pink-100 font-medium">Student</span>
               </button>
               <button
                 type="button"
-                onClick={() => handleQuickDemo('officer', 'officer-dashboard')}
+                onClick={() => fillSampleCredentials('officer@campushire.ai', 'PLACEMENT_OFFICER')}
                 className="px-2 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-xs font-semibold text-center transition-all flex flex-col items-center"
               >
                 <span className="text-sm">👔</span>
-                <span className="text-[10px] text-indigo-100">Officer</span>
+                <span className="text-[10px] text-pink-100 font-medium">Officer</span>
               </button>
               <button
                 type="button"
-                onClick={() => handleQuickDemo('recruiter', 'recruiter-dashboard')}
+                onClick={() => fillSampleCredentials('recruiter@campushire.ai', 'RECRUITER')}
                 className="px-2 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-xs font-semibold text-center transition-all flex flex-col items-center"
               >
                 <span className="text-sm">🏢</span>
-                <span className="text-[10px] text-indigo-100">Recruiter</span>
+                <span className="text-[10px] text-pink-100 font-medium">Recruiter</span>
               </button>
             </div>
           </div>
         </div>
 
-        {/* Right Side: Form */}
-        <div className="lg:col-span-7 p-8 sm:p-12 flex flex-col justify-center">
+        {/* Right Side: Explicit Login & Password Form */}
+        <div className="lg:col-span-7 p-8 sm:p-12 flex flex-col justify-center bg-white">
           <div className="max-w-md mx-auto w-full space-y-6">
             <div>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-                {isRegistering ? 'Create Student Account' : 'Welcome Back'}
+              <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+                {isRegistering ? 'Create Your Account' : 'Sign In to CampusHire'}
               </h2>
               <p className="text-xs sm:text-sm text-slate-500 mt-1">
                 {isRegistering
-                  ? 'Join CampusHire AI to access smart placement opportunities'
-                  : 'Enter your credentials or click any quick demo profile on the left'}
+                  ? 'Join students and recruiters on the smart campus career network'
+                  : 'Enter your registered email and password to access your dashboard'}
               </p>
             </div>
 
             {error && (
-              <div className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-medium">
+              <div className="p-3.5 rounded-2xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-medium animate-in fade-in">
                 {error}
               </div>
             )}
@@ -140,7 +160,7 @@ export default function LoginPage({ setActivePage }) {
                         required
                         value={fullName}
                         onChange={(e) => setFullName(e.target.value)}
-                        placeholder="Alex Chen"
+                        placeholder="e.g. Alex Chen"
                         className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-3.5 py-2.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all"
                       />
                     </div>
@@ -151,7 +171,7 @@ export default function LoginPage({ setActivePage }) {
                     <select
                       value={role}
                       onChange={(e) => setRole(e.target.value)}
-                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all"
+                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all font-medium"
                     >
                       <option value="STUDENT">Student Candidate</option>
                       <option value="PLACEMENT_OFFICER">Placement Officer / Admin</option>
@@ -164,7 +184,7 @@ export default function LoginPage({ setActivePage }) {
                     <select
                       value={department}
                       onChange={(e) => setDepartment(e.target.value)}
-                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all"
+                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all font-medium"
                     >
                       <option value="Computer Science and Engineering">Computer Science (CSE)</option>
                       <option value="Information Technology">Information Technology (IT)</option>
@@ -185,7 +205,7 @@ export default function LoginPage({ setActivePage }) {
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="student@campushire.ai"
+                    placeholder="name@campushire.ai"
                     className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-3.5 py-2.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all"
                   />
                 </div>
@@ -200,7 +220,7 @@ export default function LoginPage({ setActivePage }) {
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    placeholder="••••••••"
+                    placeholder="Enter your password"
                     className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-3.5 py-2.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all"
                   />
                 </div>
@@ -209,9 +229,15 @@ export default function LoginPage({ setActivePage }) {
               <button
                 type="submit"
                 disabled={submitting}
-                className="w-full py-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold text-xs rounded-xl shadow-lg shadow-indigo-500/25 flex items-center justify-center space-x-2 transition-all"
+                className="w-full py-3 bg-gradient-to-r from-indigo-600 via-indigo-700 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold text-xs rounded-xl shadow-lg shadow-indigo-500/25 flex items-center justify-center space-x-2 transition-all transform active:scale-98"
               >
-                <span>{submitting ? 'Authenticating...' : isRegistering ? 'Complete Registration' : 'Sign In to CampusHire'}</span>
+                <span>
+                  {submitting
+                    ? 'Authenticating...'
+                    : isRegistering
+                    ? 'Complete Registration'
+                    : 'Sign In to CampusHire'}
+                </span>
                 <ArrowRight className="w-4 h-4" />
               </button>
             </form>
@@ -221,7 +247,7 @@ export default function LoginPage({ setActivePage }) {
               <button
                 type="button"
                 onClick={() => { setIsRegistering(!isRegistering); setError(''); }}
-                className="text-xs font-medium text-indigo-600 hover:text-indigo-800"
+                className="text-xs font-medium text-indigo-600 hover:text-indigo-800 transition-colors"
               >
                 {isRegistering
                   ? 'Already have an account? Sign In here'

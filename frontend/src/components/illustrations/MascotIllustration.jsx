@@ -4,111 +4,167 @@ export default function MascotIllustration({ className = "w-16 h-16", showGlow =
   return (
     <div className={`relative inline-flex items-center justify-center ${className}`}>
       {showGlow && (
-        <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/20 via-purple-500/20 to-sky-500/20 rounded-full blur-lg animate-pulse" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-pink-400/25 via-purple-400/25 to-indigo-400/25 rounded-full blur-xl animate-pulse" />
       )}
       <svg
-        viewBox="0 0 200 200"
+        viewBox="0 0 220 220"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="w-full h-full relative z-10 drop-shadow-md"
+        className="w-full h-full relative z-10 drop-shadow-md select-none"
       >
         <defs>
-          <linearGradient id="robotBodyGrad" x1="50" y1="60" x2="150" y2="170" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#6366F1" />
-            <stop offset="0.5" stopColor="#8B5CF6" />
-            <stop offset="1" stopColor="#4F46E5" />
+          {/* Soft Pastel Body Gradient */}
+          <radialGradient id="cuteBodyGrad" cx="45%" cy="35%" r="65%">
+            <stop offset="0%" stopColor="#FFFFFF" />
+            <stop offset="45%" stopColor="#F5E8FF" />
+            <stop offset="85%" stopColor="#E9D5FF" />
+            <stop offset="100%" stopColor="#D8B4FE" />
+          </radialGradient>
+
+          {/* Cheerful Belly Gradient */}
+          <radialGradient id="bellyGrad" cx="50%" cy="40%" r="50%">
+            <stop offset="0%" stopColor="#FFF1F2" />
+            <stop offset="100%" stopColor="#FCE7F3" />
+          </radialGradient>
+
+          {/* Big Sparkly Anime Eye Gradients */}
+          <linearGradient id="eyeGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#1E1B4B" />
+            <stop offset="50%" stopColor="#312E81" />
+            <stop offset="80%" stopColor="#6366F1" />
+            <stop offset="100%" stopColor="#818CF8" />
           </linearGradient>
-          <linearGradient id="faceScreenGrad" x1="60" y1="75" x2="140" y2="135" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#0F172A" />
-            <stop offset="1" stopColor="#1E293B" />
+
+          <linearGradient id="capGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="#312E81" />
+            <stop offset="100%" stopColor="#1E1B4B" />
           </linearGradient>
-          <linearGradient id="glowEyeGrad" x1="0" y1="0" x2="1" y2="1">
-            <stop stopColor="#38BDF8" />
-            <stop offset="1" stopColor="#06B6D4" />
-          </linearGradient>
-          <linearGradient id="capGrad" x1="50" y1="20" x2="150" y2="55" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#1E1B4B" />
-            <stop offset="1" stopColor="#312E81" />
-          </linearGradient>
+
           <linearGradient id="goldTassel" x1="0" y1="0" x2="1" y2="1">
-            <stop stopColor="#FBBF24" />
-            <stop offset="1" stopColor="#F59E0B" />
+            <stop offset="0%" stopColor="#FDE047" />
+            <stop offset="100%" stopColor="#F59E0B" />
           </linearGradient>
-          <linearGradient id="roadmapGrad" x1="120" y1="120" x2="170" y2="175" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#FFFFFF" />
-            <stop offset="1" stopColor="#F1F5F9" />
+
+          <linearGradient id="scrollGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="#FFFBEB" />
+            <stop offset="100%" stopColor="#FEF3C7" />
+          </linearGradient>
+
+          <radialGradient id="blushGrad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#FB7185" stopOpacity="0.8" />
+            <stop offset="100%" stopColor="#FDA4AF" stopOpacity="0" />
+          </radialGradient>
+
+          <linearGradient id="starGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="#FDE047" />
+            <stop offset="100%" stopColor="#FBBF24" />
           </linearGradient>
         </defs>
 
-        {/* Antenna */}
-        <line x1="100" y1="60" x2="100" y2="40" stroke="#8B5CF6" strokeWidth="5" strokeLinecap="round" />
-        <circle cx="100" cy="38" r="7" fill="#38BDF8">
-          <animate attributeName="r" values="6;8;6" dur="2s" repeatCount="indefinite" />
-        </circle>
-
-        {/* Robot Head Outer Frame */}
-        <rect x="52" y="62" width="96" height="78" rx="28" fill="url(#robotBodyGrad)" stroke="#C7D2FE" strokeWidth="2.5" />
-
-        {/* Robot Ears */}
-        <rect x="42" y="86" width="10" height="24" rx="5" fill="#8B5CF6" />
-        <circle cx="47" cy="98" r="2.5" fill="#38BDF8" />
-        <rect x="148" y="86" width="10" height="24" rx="5" fill="#8B5CF6" />
-        <circle cx="153" cy="98" r="2.5" fill="#38BDF8" />
-
-        {/* Glossy Face Screen */}
-        <rect x="62" y="74" width="76" height="54" rx="18" fill="url(#faceScreenGrad)" />
-
-        {/* Friendly Glowing Eyes (Happy Curved Eyes) */}
-        <path d="M74 95 Q82 86 90 95" stroke="url(#glowEyeGrad)" strokeWidth="4.5" strokeLinecap="round" fill="none" />
-        <circle cx="82" cy="100" r="1.5" fill="#38BDF8" opacity="0.6" />
-
-        <path d="M110 95 Q118 86 126 95" stroke="url(#glowEyeGrad)" strokeWidth="4.5" strokeLinecap="round" fill="none" />
-        <circle cx="118" cy="100" r="1.5" fill="#38BDF8" opacity="0.6" />
-
-        {/* Cute Cheeks */}
-        <ellipse cx="73" cy="108" rx="4" ry="2.5" fill="#F472B6" opacity="0.7" />
-        <ellipse cx="127" cy="108" rx="4" ry="2.5" fill="#F472B6" opacity="0.7" />
-
-        {/* Cheerful Robot Smile */}
-        <path d="M93 112 Q100 119 107 112" stroke="#38BDF8" strokeWidth="3" strokeLinecap="round" fill="none" />
-
-        {/* Graduation Cap (Mortarboard) */}
-        <polygon points="100,18 152,32 100,46 48,32" fill="url(#capGrad)" stroke="#818CF8" strokeWidth="1.5" />
-        <rect x="84" y="38" width="32" height="12" rx="4" fill="#312E81" />
-        {/* Cap Button & Tassel */}
-        <circle cx="100" cy="32" r="3.5" fill="url(#goldTassel)" />
-        <path d="M100 32 Q130 35 138 52" stroke="url(#goldTassel)" strokeWidth="2.5" fill="none" strokeLinecap="round" />
-        <polygon points="138,52 143,62 133,62" fill="url(#goldTassel)" />
-
-        {/* Robot Body / Chest */}
-        <path d="M68 140 C68 135 132 135 132 140 L138 180 C138 186 62 186 62 180 Z" fill="url(#robotBodyGrad)" stroke="#C7D2FE" strokeWidth="2" />
-        {/* Core Heart / Power Matrix */}
-        <circle cx="100" cy="158" r="8" fill="#38BDF8" opacity="0.9">
-          <animate attributeName="opacity" values="0.7;1;0.7" dur="1.8s" repeatCount="indefinite" />
-        </circle>
-        <path d="M96 158 L100 154 L104 158 L100 162 Z" fill="#FFFFFF" />
-
-        {/* Left Arm Waving */}
-        <path d="M64 146 Q45 138 42 120" stroke="#8B5CF6" strokeWidth="7" strokeLinecap="round" fill="none" />
-        <circle cx="42" cy="118" r="6" fill="#A5B4FC" />
-
-        {/* Right Arm holding Career Roadmap */}
-        <path d="M136 148 Q150 152 156 160" stroke="#8B5CF6" strokeWidth="7" strokeLinecap="round" fill="none" />
-
-        {/* Small Career Roadmap Document */}
-        <g transform="rotate(-12 152 156)">
-          <rect x="134" y="134" width="34" height="44" rx="4" fill="url(#roadmapGrad)" stroke="#CBD5E1" strokeWidth="1.5" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.1))" />
-          {/* Roadmap Header Pin */}
-          <circle cx="142" cy="142" r="2.5" fill="#EF4444" />
-          <line x1="148" y1="142" x2="162" y2="142" stroke="#4F46E5" strokeWidth="2" strokeLinecap="round" />
-          {/* Roadmap Steps */}
-          <circle cx="142" cy="152" r="2" fill="#10B981" />
-          <line x1="147" y1="152" x2="161" y2="152" stroke="#64748B" strokeWidth="1.5" strokeLinecap="round" />
-          <line x1="142" y1="154" x2="142" y2="160" stroke="#94A3B8" strokeWidth="1" strokeDasharray="1 1" />
-          <circle cx="142" cy="162" r="2" fill="#3B82F6" />
-          <line x1="147" y1="162" x2="160" y2="162" stroke="#64748B" strokeWidth="1.5" strokeLinecap="round" />
-          <path d="M158 170 L163 166 L160 173 Z" fill="#F59E0B" />
+        {/* Ambient Floating Sparkles & Stars */}
+        <g opacity="0.9">
+          {/* Top-Right Star */}
+          <path d="M185 45 Q190 55 200 55 Q190 55 185 65 Q180 55 170 55 Q180 55 185 45 Z" fill="url(#starGrad)" />
+          {/* Top-Left Star */}
+          <path d="M32 60 Q36 68 44 68 Q36 68 32 76 Q28 68 20 68 Q28 68 32 60 Z" fill="url(#starGrad)" />
+          {/* Tiny Sparkle Circles */}
+          <circle cx="195" cy="85" r="3" fill="#F472B6" />
+          <circle cx="28" cy="95" r="2.5" fill="#A855F7" />
+          <circle cx="175" cy="180" r="3.5" fill="#38BDF8" />
+          <circle cx="45" cy="175" r="3" fill="#FDE047" />
         </g>
+
+        {/* Cute Soft Fluffy Ears */}
+        {/* Left Ear */}
+        <path d="M60 75 C45 35 70 20 85 55 Z" fill="url(#cuteBodyGrad)" stroke="#C084FC" strokeWidth="2" />
+        <path d="M64 70 C53 42 70 32 80 56 Z" fill="#FCE7F3" opacity="0.85" />
+
+        {/* Right Ear */}
+        <path d="M140 75 C155 35 130 20 115 55 Z" fill="url(#cuteBodyGrad)" stroke="#C084FC" strokeWidth="2" />
+        <path d="M136 70 C147 42 130 32 120 56 Z" fill="#FCE7F3" opacity="0.85" />
+
+        {/* Chubby, Round Adorable Head & Body */}
+        {/* Main Body Silhouette */}
+        <path
+          d="M55 130 C45 95 65 65 100 65 C135 65 155 95 145 130 C155 165 135 195 100 195 C65 195 45 165 55 130 Z"
+          fill="url(#cuteBodyGrad)"
+          stroke="#C084FC"
+          strokeWidth="2.5"
+        />
+
+        {/* Soft Tummy Patch */}
+        <ellipse cx="100" cy="148" rx="34" ry="32" fill="url(#bellyGrad)" opacity="0.9" />
+
+        {/* Tiny Adorable Scholar Graduation Cap Tilted on Head */}
+        <g transform="rotate(-10 100 50)">
+          {/* Mortarboard Diamond */}
+          <polygon points="100,26 142,38 100,50 58,38" fill="url(#capGrad)" stroke="#818CF8" strokeWidth="1.5" />
+          {/* Cap Skull Under-band */}
+          <path d="M82 43 Q100 48 118 43 L120 52 Q100 57 80 52 Z" fill="#1E1B4B" />
+          {/* Golden Button */}
+          <circle cx="100" cy="38" r="3.5" fill="url(#goldTassel)" />
+          {/* Dangling Ribbon & Tassel */}
+          <path d="M100 38 Q132 40 138 56" stroke="url(#goldTassel)" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+          <polygon points="138,56 143,66 133,66" fill="url(#goldTassel)" />
+        </g>
+
+        {/* Big Expressive Sparkling Anime Eyes */}
+        {/* Left Eye */}
+        <ellipse cx="78" cy="112" rx="14" ry="17" fill="url(#eyeGrad)" />
+        {/* Left Eye Sparkles */}
+        <ellipse cx="74" cy="104" rx="5.5" ry="7" fill="#FFFFFF" />
+        <circle cx="84" cy="118" r="3" fill="#FFFFFF" />
+        <circle cx="75" cy="120" r="1.5" fill="#E0E7FF" />
+        {/* Left Eyelash Accent */}
+        <path d="M68 98 Q76 94 86 97" stroke="#1E1B4B" strokeWidth="2.5" strokeLinecap="round" fill="none" />
+
+        {/* Right Eye */}
+        <ellipse cx="122" cy="112" rx="14" ry="17" fill="url(#eyeGrad)" />
+        {/* Right Eye Sparkles */}
+        <ellipse cx="118" cy="104" rx="5.5" ry="7" fill="#FFFFFF" />
+        <circle cx="128" cy="118" r="3" fill="#FFFFFF" />
+        <circle cx="119" cy="120" r="1.5" fill="#E0E7FF" />
+        {/* Right Eyelash Accent */}
+        <path d="M114 97 Q124 94 132 98" stroke="#1E1B4B" strokeWidth="2.5" strokeLinecap="round" fill="none" />
+
+        {/* Blushing Rosy Cheeks */}
+        <ellipse cx="64" cy="126" rx="9" ry="6" fill="url(#blushGrad)" />
+        <ellipse cx="136" cy="126" rx="9" ry="6" fill="url(#blushGrad)" />
+
+        {/* Tiny Sweet Cat/Bunny Mouth (:3 smile) */}
+        <path
+          d="M93 124 Q97 128 100 124 Q103 128 107 124"
+          stroke="#4C1D95"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          fill="none"
+        />
+
+        {/* Cute Little Feet Paws */}
+        <ellipse cx="78" cy="192" rx="12" ry="7" fill="#F3E8FF" stroke="#C084FC" strokeWidth="1.5" />
+        <ellipse cx="122" cy="192" rx="12" ry="7" fill="#F3E8FF" stroke="#C084FC" strokeWidth="1.5" />
+
+        {/* Left Paws holding Cute Career Scroll / Roadmap */}
+        {/* Rolled Certificate / Roadmap Scroll */}
+        <g transform="rotate(18 140 148)">
+          <rect x="130" y="128" width="16" height="42" rx="5" fill="url(#scrollGrad)" stroke="#F59E0B" strokeWidth="1.5" />
+          {/* Scroll Tie Ribbon */}
+          <rect x="129" y="144" width="18" height="6" rx="2" fill="#F43F5E" />
+          <polygon points="147,150 153,158 143,156" fill="#F43F5E" />
+          {/* Mini Gold Seal */}
+          <circle cx="138" cy="147" r="3" fill="#F59E0B" />
+        </g>
+
+        {/* Right Little Arm/Paw Holding Scroll */}
+        <path d="M125 142 Q136 142 142 149" stroke="#D8B4FE" strokeWidth="7" strokeLinecap="round" fill="none" />
+        <circle cx="140" cy="149" r="5" fill="#FFFFFF" />
+
+        {/* Left Little Waving Paw */}
+        <path d="M72 140 Q55 134 50 124" stroke="#D8B4FE" strokeWidth="7" strokeLinecap="round" fill="none" />
+        <circle cx="49" cy="123" r="5.5" fill="#FFFFFF" />
+
+        {/* Tiny Floating Star on Paw */}
+        <path d="M42 112 Q45 117 50 117 Q45 117 42 122 Q39 117 34 117 Q39 117 42 112 Z" fill="url(#starGrad)" />
       </svg>
     </div>
   );

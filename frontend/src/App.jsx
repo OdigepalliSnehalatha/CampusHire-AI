@@ -22,16 +22,31 @@ import RecruiterDashboard from './pages/RecruiterDashboard';
 function AppContent() {
   const { user } = useAuth();
   const [activePage, setActivePage] = useState(() => {
-    // If user is already in session, default to their dashboard, otherwise landing
+    // If not logged in, always start at landing page
     return user ? 'dashboard' : 'landing';
   });
 
   const renderCurrentPage = () => {
+    // Public routes that don't require login
+    if (activePage === 'landing') {
+      return <LandingPage setActivePage={setActivePage} />;
+    }
+    if (activePage === 'login') {
+      return <LoginPage setActivePage={setActivePage} />;
+    }
+    if (activePage === 'companies') {
+      return <CompaniesPage setActivePage={setActivePage} />;
+    }
+    if (activePage === 'jobs' && !user) {
+      return <JobDiscoveryPage setActivePage={setActivePage} />;
+    }
+
+    // Protected routes requiring authentication: if not logged in, show LoginPage
+    if (!user) {
+      return <LoginPage setActivePage={setActivePage} />;
+    }
+
     switch (activePage) {
-      case 'landing':
-        return <LandingPage setActivePage={setActivePage} />;
-      case 'login':
-        return <LoginPage setActivePage={setActivePage} />;
       case 'dashboard':
         return <StudentDashboard setActivePage={setActivePage} />;
       case 'jobs':
@@ -48,8 +63,6 @@ function AppContent() {
         return <InterviewCoachPage setActivePage={setActivePage} />;
       case 'profile':
         return <ProfilePage setActivePage={setActivePage} />;
-      case 'companies':
-        return <CompaniesPage setActivePage={setActivePage} />;
       case 'officer-dashboard':
       case 'officer-applications':
       case 'officer-students':
