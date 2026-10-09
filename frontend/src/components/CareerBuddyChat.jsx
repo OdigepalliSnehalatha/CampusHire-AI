@@ -33,6 +33,23 @@ export default function CareerBuddyChat() {
   };
 
   useEffect(() => {
+    if (user?.fullName) {
+      const name = user.fullName.split(' ')[0];
+      setMessages(prev => {
+        if (prev.length === 1 && prev[0].sender === 'bot') {
+          return [
+            {
+              ...prev[0],
+              text: `Hi ${name}! ✨\n\nI'm **CareerBuddy**! Your friendly AI placement companion. 🎓\n\nI'm here to cheer you on, review your resume, practice interviews, and guide your roadmap.\n\nWhat would you like help with today?`
+            }
+          ];
+        }
+        return prev;
+      });
+    }
+  }, [user]);
+
+  useEffect(() => {
     if (isOpen) {
       scrollToBottom();
     }

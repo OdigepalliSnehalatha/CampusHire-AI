@@ -57,6 +57,12 @@ export default function SkillGapPage({ setActivePage }) {
   };
 
   useEffect(() => {
+    if (user?.targetRole && user.targetRole !== targetRole) {
+      setTargetRole(user.targetRole);
+    }
+  }, [user]);
+
+  useEffect(() => {
     fetchAnalysis(targetRole);
   }, [targetRole]);
 

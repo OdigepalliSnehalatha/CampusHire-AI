@@ -19,12 +19,16 @@ import CompaniesPage from './pages/CompaniesPage';
 import OfficerDashboard from './pages/OfficerDashboard';
 import RecruiterDashboard from './pages/RecruiterDashboard';
 
+import Sidebar from './components/Sidebar';
+import DashboardHeader from './components/DashboardHeader';
+
 function AppContent() {
   const { user } = useAuth();
   const [activePage, setActivePage] = useState(() => {
     // If not logged in, always start at landing page
     return user ? 'dashboard' : 'landing';
   });
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const renderCurrentPage = () => {
     // Public routes that don't require login
@@ -75,9 +79,43 @@ function AppContent() {
     }
   };
 
+  const isDashboardLayout = !!user && activePage !== 'landing' && activePage !== 'login';
+
+  if (isDashboardLayout) {
+    return (
+      <div className="min-h-screen bg-slate-50 text-slate-900 selection:bg-indigo-500 selection:text-white font-sans flex">
+        {/* Left Side Navigation Sidebar */}
+        <Sidebar
+          activePage={activePage}
+          setActivePage={setActivePage}
+          isOpen={sidebarOpen}
+          onClose={() => setSidebarOpen(false)}
+        />
+
+        {/* Right Side Main Content View */}
+        <div className="flex-1 flex flex-col min-w-0 lg:pl-72 transition-all">
+          <DashboardHeader
+            activePage={activePage}
+            setActivePage={setActivePage}
+            onToggleSidebar={() => setSidebarOpen(!sidebarOpen)}
+          />
+
+          <main className="flex-1">
+            {renderCurrentPage()}
+          </main>
+
+          <Footer setActivePage={setActivePage} />
+        </div>
+
+        {/* Floating CareerBuddy AI Assistant */}
+        <CareerBuddyChat />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 selection:bg-indigo-500 selection:text-white font-sans">
-      {/* Top Navigation */}
+      {/* Top Navigation for Public Views */}
       <Navbar activePage={activePage} setActivePage={setActivePage} />
 
       {/* Main Page Body */}

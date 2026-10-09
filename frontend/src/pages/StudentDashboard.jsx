@@ -36,6 +36,16 @@ export default function StudentDashboard({ setActivePage, onOpenChat }) {
   const [tipIndex, setTipIndex] = useState(0);
 
   useEffect(() => {
+    if (user) {
+      setProfile(prev => ({
+        ...prev,
+        ...user,
+        fullName: user.fullName || prev?.fullName
+      }));
+    }
+  }, [user]);
+
+  useEffect(() => {
     async function loadData() {
       try {
         const [profData, jobsData, appsData, achData] = await Promise.allSettled([
@@ -44,32 +54,42 @@ export default function StudentDashboard({ setActivePage, onOpenChat }) {
           applicationsApi.getMyApplications(),
           studentApi.getAchievements()
         ]);
-        if (profData.status === 'fulfilled' && profData.value) setProfile(profData.value);
+        if (profData.status === 'fulfilled' && profData.value) {
+          setProfile(prev => ({
+            ...prev,
+            ...profData.value,
+            fullName: user?.fullName || profData.value?.user?.fullName || prev?.fullName || 'Student'
+          }));
+        }
         if (jobsData.status === 'fulfilled' && jobsData.value) {
-          // Normalize if recommended drives structure
           const formatted = jobsData.value.map(item => item.drive ? { ...item.drive, matchScore: item.matchScore, matchReasons: item.matchReasons } : item);
           if (formatted.length > 0) setJobs(formatted);
         }
-        if (appsData.status === 'fulfilled' && appsData.value && appsData.value.length > 0) setApplications(appsData.value);
-        if (achData.status === 'fulfilled' && achData.value && achData.value.length > 0) setAchievements(achData.value);
+        if (appsData.status === 'fulfilled' && appsData.value && appsData.value.length > 0) {
+          setApplications(appsData.value);
+        }
+        if (achData.status === 'fulfilled' && achData.value && achData.value.length > 0) {
+          setAchievements(achData.value);
+        }
       } catch (e) {
         // Fallbacks preserved
       }
     }
     loadData();
-  }, []);
+  }, [user?.email, user?.id]);
 
-  const studentName = profile?.fullName ? profile.fullName.split(' ')[0] : 'Alex';
-  const completion = profile?.profileCompletion || 85;
+  const studentFullName = user?.fullName || profile?.fullName || profile?.user?.fullName || 'Student';
+  const firstName = studentFullName.split(' ')[0];
+  const completion = profile?.profileCompletion || user?.profileCompletion || 85;
 
   const nextTip = () => {
     setTipIndex((prev) => (prev + 1) % CAREER_TIPS.length);
   };
 
-  const studentApps = applications.filter(a => !profile?.id || a.studentId === profile?.id || a.studentName === profile?.fullName);
+  const studentApps = applications.filter(a => !profile?.id || a.studentId === profile?.id || a.studentName === studentFullName);
   const displayApps = studentApps.length > 0 ? studentApps : applications;
 
-  const eligibleCount = jobs.filter(j => !j.minCgpa || (profile?.cgpa && profile.cgpa >= j.minCgpa)).length;
+  const eligibleCount = jobs.filter(j => !j.minCgpa || ((profile?.cgpa || user?.cgpa) && (profile?.cgpa || user?.cgpa) >= j.minCgpa)).length;
   const shortlistedCount = displayApps.filter(a => a.status === 'SHORTLISTED' || a.status.includes('INTERVIEW')).length;
   const selectedCount = displayApps.filter(a => a.status === 'SELECTED').length;
 
@@ -83,8 +103,9 @@ export default function StudentDashboard({ setActivePage, onOpenChat }) {
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
               <span>Placement Drive Season 2026 Active</span>
             </div>
-            <h1 className="text-3xl sm:text-4xl font-black tracking-tight">
-              Good Morning, {studentName}! 👋
+            <h1 className="text-3xl sm:text-4xl font-black tracking-tight flex items-center space-x-2">
+              <span>Hello, {firstName}!</span>
+              <span>👋</span>
             </h1>
             <p className="text-indigo-200 text-sm sm:text-base font-normal">
               Ready to take your next career step?
@@ -108,6 +129,52 @@ export default function StudentDashboard({ setActivePage, onOpenChat }) {
               </button>
             </div>
           </div>
+        </div>
+
+        {/* Left Side Horizontal Navigation Strip */}
+        <div className="max-w-7xl mx-auto mt-6 flex items-center space-x-2 overflow-x-auto pb-1 scrollbar-none">
+          <button
+            onClick={() => setActivePage('dashboard')}
+            className="px-3.5 py-1.5 rounded-xl bg-white/20 text-white font-bold text-xs backdrop-blur-md border border-white/30 whitespace-nowrap shadow-xs"
+          >
+            📊 Overview
+          </button>
+          <button
+            onClick={() => setActivePage('jobs')}
+            className="px-3.5 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-indigo-100 font-semibold text-xs backdrop-blur-md border border-white/15 whitespace-nowrap transition-colors"
+          >
+            💼 Eligible Jobs ({eligibleCount})
+          </button>
+          <button
+            onClick={() => setActivePage('applications')}
+            className="px-3.5 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-indigo-100 font-semibold text-xs backdrop-blur-md border border-white/15 whitespace-nowrap transition-colors"
+          >
+            📋 Applications ({displayApps.length})
+          </button>
+          <button
+            onClick={() => setActivePage('roadmap')}
+            className="px-3.5 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-indigo-100 font-semibold text-xs backdrop-blur-md border border-white/15 whitespace-nowrap transition-colors"
+          >
+            🗺️ Career Roadmap
+          </button>
+          <button
+            onClick={() => setActivePage('skill-gap')}
+            className="px-3.5 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-indigo-100 font-semibold text-xs backdrop-blur-md border border-white/15 whitespace-nowrap transition-colors"
+          >
+            🎯 Skill Gap Analysis
+          </button>
+          <button
+            onClick={() => setActivePage('interview-coach')}
+            className="px-3.5 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-indigo-100 font-semibold text-xs backdrop-blur-md border border-white/15 whitespace-nowrap transition-colors"
+          >
+            🎤 Mock Interview Coach
+          </button>
+          <button
+            onClick={() => setActivePage('resume-assistant')}
+            className="px-3.5 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-indigo-100 font-semibold text-xs backdrop-blur-md border border-white/15 whitespace-nowrap transition-colors"
+          >
+            📄 Resume ATS Score
+          </button>
         </div>
       </div>
 

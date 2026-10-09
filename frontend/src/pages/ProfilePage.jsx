@@ -29,6 +29,12 @@ export default function ProfilePage() {
   const [projects, setProjects] = useState(INITIAL_PROJECTS);
   const [certifications, setCertifications] = useState(INITIAL_CERTIFICATIONS);
 
+  useEffect(() => {
+    if (user) {
+      setProfile(user);
+    }
+  }, [user]);
+
   // New Project Form Modal
   const [showProjectModal, setShowProjectModal] = useState(false);
   const [newProject, setNewProject] = useState({
@@ -85,20 +91,20 @@ export default function ProfilePage() {
         <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-md flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div className="flex items-center space-x-5">
             <div className="w-20 h-20 rounded-2xl bg-gradient-to-tr from-indigo-600 via-indigo-700 to-purple-600 text-white font-black text-2xl flex items-center justify-center shadow-lg shadow-indigo-500/20">
-              {profile?.fullName ? profile.fullName[0] : 'A'}
+              {(user?.fullName || profile?.fullName) ? (user?.fullName || profile?.fullName)[0] : 'S'}
             </div>
             <div>
               <div className="flex items-center space-x-2">
-                <h1 className="text-2xl font-black text-slate-900">{profile?.fullName || 'Alex Chen'}</h1>
+                <h1 className="text-2xl font-black text-slate-900">{user?.fullName || profile?.fullName || 'Student Candidate'}</h1>
                 <span className="text-xs bg-indigo-50 text-indigo-700 font-bold px-2.5 py-0.5 rounded-full border border-indigo-200">
                   Candidate
                 </span>
               </div>
               <div className="text-xs sm:text-sm text-slate-600 mt-1 font-medium">
-                {profile?.department || 'Computer Science and Engineering'} • Batch {profile?.graduationYear || 2026}
+                {user?.department || profile?.department || 'Engineering Department'} • Batch {profile?.graduationYear || 2026}
               </div>
               <div className="text-xs text-indigo-600 font-bold mt-1">
-                Target Role: {profile?.targetRole || 'Java Backend Developer'}
+                Target Role: {user?.targetRole || profile?.targetRole || 'Software Engineer'}
               </div>
             </div>
           </div>
