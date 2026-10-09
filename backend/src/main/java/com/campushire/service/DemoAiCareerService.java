@@ -40,7 +40,30 @@ public class DemoAiCareerService implements AiCareerService {
         );
         List<ChatMessageResponse.CareerPathSuggestion> careerSuggestions = new ArrayList<>();
 
-        if (userText.contains("scared") || userText.contains("won't get placed") || userText.contains("wont get placed") || userText.contains("fear")) {
+        double cgpa = (student != null && student.getCgpa() != null) ? student.getCgpa() : 8.5;
+        int completion = (student != null && student.getProfileCompletion() != null) ? student.getProfileCompletion() : 85;
+        String dept = (student != null && student.getDepartment() != null) ? student.getDepartment() : "Computer Science";
+        String targetRole = (student != null && student.getTargetRole() != null) ? student.getTargetRole() : "Java Backend Developer";
+
+        if (userText.contains("performance") || userText.contains("dashboard") || userText.contains("suggestion") || userText.contains("encourage") || userText.contains("how am i doing")) {
+            String tierHeader = cgpa >= 9.0 ? "🌟 Exceptional Placement Readiness (Top Tier)"
+                    : cgpa >= 8.0 ? "🚀 High Placement Potential (Top 10% Bracket)"
+                    : "🌱 Steady Progress & Strong Practical Potential";
+
+            reply = "Hi " + studentName + "! 🐰🎓 Here is your personalized performance breakdown from CareerBuddy:\n\n" +
+                    tierHeader + "\n" +
+                    "• **CGPA:** " + cgpa + " (" + dept + ")\n" +
+                    "• **Profile Completion:** " + completion + "% Ready\n" +
+                    "• **Target Role:** " + targetRole + "\n\n" +
+                    (cgpa >= 8.0 
+                        ? "Your strong " + cgpa + " CGPA comfortably qualifies you for **95%+ campus placement drives** (Oracle, Google, TCS Digital)! You are in prime shape to convert high-package offers." 
+                        : "Focus on demonstrated coding grit and hands-on GitHub projects—recruiters prioritize problem solvers over test scores!") + "\n\n" +
+                    "### 🎯 3 High-Impact Suggestions For You:\n" +
+                    "1. 💻 **Daily Problem Solving:** Solve 2 LeetCode Medium problems daily on Arrays, HashMaps, and Binary Trees.\n" +
+                    "2. ☕ **Framework Depth:** Strengthen Spring Boot, REST APIs, and SQL query optimizations.\n" +
+                    "3. 🎤 **Interview Polish:** Practice explaining your projects clearly using the STAR method.\n\n" +
+                    "Keep moving forward with confidence! 💙";
+        } else if (userText.contains("scared") || userText.contains("won't get placed") || userText.contains("wont get placed") || userText.contains("fear")) {
             reply = "That's completely normal, " + studentName + ". 🌱\n\n" +
                     "You don't need to know everything today. Placement prep is a gradual marathon, not an overnight sprint.\n\n" +
                     "Let's focus on one manageable step at a time. Based on your profile:\n" +
