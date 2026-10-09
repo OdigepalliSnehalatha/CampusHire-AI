@@ -38,11 +38,27 @@ export function AuthProvider({ children }) {
         return { success: true, user: res.user };
       }
     } catch (err) {
-      // Demo authentication validation
-      if (email === 'student@campushire.ai' && password === 'password123') {
-        setUser(DEMO_USERS.student);
-        setToken('demo-token-student');
-        return { success: true, user: DEMO_USERS.student };
+      // Demo / offline fallback authentication for all 5 prototype students & staff
+      if ((email === 'student@campushire.ai' || email === 'alex@campushire.ai') && password === 'password123') {
+        setUser(DEMO_USERS.student1);
+        setToken('demo-token-alex');
+        return { success: true, user: DEMO_USERS.student1 };
+      } else if (email === 'priya@campushire.ai' && password === 'password123') {
+        setUser(DEMO_USERS.student2);
+        setToken('demo-token-priya');
+        return { success: true, user: DEMO_USERS.student2 };
+      } else if (email === 'rohit@campushire.ai' && password === 'password123') {
+        setUser(DEMO_USERS.student3);
+        setToken('demo-token-rohit');
+        return { success: true, user: DEMO_USERS.student3 };
+      } else if (email === 'ananya@campushire.ai' && password === 'password123') {
+        setUser(DEMO_USERS.student4);
+        setToken('demo-token-ananya');
+        return { success: true, user: DEMO_USERS.student4 };
+      } else if (email === 'kavya@campushire.ai' && password === 'password123') {
+        setUser(DEMO_USERS.student5);
+        setToken('demo-token-kavya');
+        return { success: true, user: DEMO_USERS.student5 };
       } else if (email === 'officer@campushire.ai' && password === 'password123') {
         setUser(DEMO_USERS.officer);
         setToken('demo-token-officer');

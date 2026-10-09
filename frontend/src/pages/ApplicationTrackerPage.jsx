@@ -50,6 +50,9 @@ export default function ApplicationTrackerPage({ setActivePage }) {
     }
   };
 
+  const userApps = applications.filter(a => !user?.id || a.studentId === user?.id || a.studentName === user?.fullName);
+  const displayApps = userApps.length > 0 ? userApps : applications;
+
   return (
     <div className="min-h-screen bg-slate-50/60 py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto space-y-8">
@@ -69,7 +72,7 @@ export default function ApplicationTrackerPage({ setActivePage }) {
 
         {/* Applications List */}
         <div className="space-y-6">
-          {applications.map((app) => {
+          {displayApps.map((app) => {
             const currentIdx = getStageIndex(app.status);
 
             return (

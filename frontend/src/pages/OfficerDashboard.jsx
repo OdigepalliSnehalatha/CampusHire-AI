@@ -59,20 +59,21 @@ export default function OfficerDashboard({ setActivePage }) {
       { month: 'Jan', offers: 55, drives: 10 }
     ],
     topHiringCompanies: [
-      { company: 'TechNova', hired: 45, avgPackage: 8.5 },
-      { company: 'CloudSphere', hired: 38, avgPackage: 10.2 },
-      { company: 'DataCore', hired: 32, avgPackage: 7.8 },
-      { company: 'InnoSoft', hired: 28, avgPackage: 6.5 },
-      { company: 'NextGen', hired: 24, avgPackage: 9.0 }
+      { company: 'Google', hired: 42, avgPackage: 22.5, logo: '🌐' },
+      { company: 'Microsoft', hired: 55, avgPackage: 19.8, logo: '💻' },
+      { company: 'Amazon', hired: 60, avgPackage: 16.5, logo: '📦' },
+      { company: 'Oracle', hired: 48, avgPackage: 13.5, logo: '🏛️' },
+      { company: 'TCS', hired: 120, avgPackage: 8.5, logo: '🏢' },
+      { company: 'Infosys', hired: 95, avgPackage: 8.0, logo: '🔷' }
     ]
   });
 
   const [studentCohort, setStudentCohort] = useState([
-    { id: 1, name: 'Alex Chen', dept: 'CSE', cgpa: 8.4, target: 'Java Backend', status: 'In Process', match: '92%' },
-    { id: 2, name: 'Priya Patel', dept: 'IT', cgpa: 8.9, target: 'Full Stack', status: 'Selected (TechNova)', match: '95%' },
-    { id: 3, name: 'Rohit Verma', dept: 'ECE', cgpa: 7.2, target: 'Data Analyst', status: 'Shortlisted', match: '80%' },
-    { id: 4, name: 'Ananya Roy', dept: 'CSE', cgpa: 9.1, target: 'Cloud Engineer', status: 'Selected (CloudSphere)', match: '98%' },
-    { id: 5, name: 'Vikram Singh', dept: 'EEE', cgpa: 7.6, target: 'Software Engineer', status: 'In Process', match: '78%' }
+    { id: 1, name: 'Alex Chen', dept: 'CSE', cgpa: 8.6, target: 'Java Backend', status: 'In Process (Oracle)', match: '94%' },
+    { id: 2, name: 'Priya Patel', dept: 'IT', cgpa: 9.2, target: 'React & Cloud', status: 'Selected 🎉 (Microsoft)', match: '98%' },
+    { id: 3, name: 'Rohit Verma', dept: 'ECE', cgpa: 7.8, target: 'IoT & Embedded', status: 'Shortlisted (TCS Digital)', match: '84%' },
+    { id: 4, name: 'Ananya Sharma', dept: 'CSE (AI/ML)', cgpa: 8.9, target: 'AI & Data Science', status: 'Technical Round (Amazon)', match: '92%' },
+    { id: 5, name: 'Kavya Reddy', dept: 'EEE', cgpa: 8.2, target: 'Cloud QA & DevOps', status: 'Selected 🎉 (Infosys)', match: '90%' }
   ]);
 
   const COLORS = ['#6366F1', '#38BDF8', '#10B981', '#F59E0B', '#F43F5E'];
@@ -241,13 +242,13 @@ export default function OfficerDashboard({ setActivePage }) {
                 </button>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 pt-2">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 pt-2">
                 {analytics.topHiringCompanies.map((c, idx) => (
-                  <div key={idx} className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-2 text-center">
-                    <div className="text-2xl mb-1">🏢</div>
-                    <div className="font-black text-sm text-slate-900">{c.company}</div>
-                    <div className="text-xs text-emerald-700 font-bold">{c.hired} Offers Made</div>
-                    <div className="text-[11px] text-slate-500">Avg ₹{c.avgPackage} LPA</div>
+                  <div key={idx} className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-1.5 text-center hover:bg-white hover:shadow-md transition-all">
+                    <div className="text-2xl mb-0.5">{c.logo || '🏢'}</div>
+                    <div className="font-black text-xs sm:text-sm text-slate-900 truncate">{c.company}</div>
+                    <div className="text-xs text-emerald-700 font-bold">{c.hired} Offers</div>
+                    <div className="text-[10px] text-slate-500 font-medium">Avg ₹{c.avgPackage} LPA</div>
                   </div>
                 ))}
               </div>

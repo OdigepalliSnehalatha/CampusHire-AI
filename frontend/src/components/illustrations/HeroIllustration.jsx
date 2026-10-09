@@ -14,7 +14,7 @@ export default function HeroIllustration({ className = "w-full max-w-lg h-auto" 
         </div>
         <div>
           <div className="text-xs text-slate-500 font-medium">Placement Offer</div>
-          <div className="text-sm font-bold text-slate-800">TechNova • ₹8 LPA</div>
+          <div className="text-sm font-bold text-slate-800">Google • ₹22 LPA</div>
         </div>
       </div>
 

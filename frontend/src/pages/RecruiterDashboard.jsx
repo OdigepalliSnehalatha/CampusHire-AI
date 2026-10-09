@@ -16,10 +16,11 @@ import {
 
 export default function RecruiterDashboard({ setActivePage }) {
   const [candidates, setCandidates] = useState([
-    { id: 1, name: 'Alex Chen', role: 'Java Backend Developer', cgpa: 8.4, dept: 'CSE', score: 92, stage: 'Technical Interview' },
-    { id: 2, name: 'Priya Patel', role: 'Java Backend Developer', cgpa: 8.9, dept: 'IT', score: 95, stage: 'Shortlisted' },
-    { id: 3, name: 'Kunal Deshmukh', role: 'Java Backend Developer', cgpa: 7.9, dept: 'CSE', score: 86, stage: 'Applied' },
-    { id: 4, name: 'Meera Nair', role: 'Java Backend Developer', cgpa: 8.1, dept: 'ECE', score: 84, stage: 'HR Interview' }
+    { id: 1, name: 'Alex Chen', role: 'Java Backend Developer', cgpa: 8.6, dept: 'CSE', score: 94, stage: 'Technical Interview' },
+    { id: 2, name: 'Priya Patel', role: 'Full Stack React & Cloud', cgpa: 9.2, dept: 'IT', score: 98, stage: 'Selected / Offer' },
+    { id: 3, name: 'Rohit Verma', role: 'Embedded Systems & IoT', cgpa: 7.8, dept: 'ECE', score: 84, stage: 'Shortlisted' },
+    { id: 4, name: 'Ananya Sharma', role: 'AI & Machine Learning', cgpa: 8.9, dept: 'CSE (AI/ML)', score: 92, stage: 'Technical Interview' },
+    { id: 5, name: 'Kavya Reddy', role: 'Cloud DevOps & QA', cgpa: 8.2, dept: 'EEE', score: 90, stage: 'Selected / Offer' }
   ]);
 
   const [showCreateModal, setShowCreateModal] = useState(false);
@@ -57,7 +58,7 @@ export default function RecruiterDashboard({ setActivePage }) {
           <div>
             <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-purple-50 border border-purple-200 text-purple-700 text-xs font-semibold mb-2">
               <Sparkles className="w-3.5 h-3.5 text-purple-600" />
-              <span>TechNova Recruiter Portal</span>
+              <span>Google Talent Acquisition & Enterprise Portal</span>
             </div>
             <h1 className="text-3xl font-black text-slate-900 tracking-tight">
               Recruiter Command Hub
@@ -81,7 +82,7 @@ export default function RecruiterDashboard({ setActivePage }) {
           <div className="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-md">
             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Active Drives</span>
             <div className="text-2xl font-black text-slate-900">3</div>
-            <span className="text-[10px] text-indigo-600 font-semibold">TechNova Openings</span>
+            <span className="text-[10px] text-indigo-600 font-semibold">Google Campus Drives</span>
           </div>
 
           <div className="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-md">
@@ -117,7 +118,7 @@ export default function RecruiterDashboard({ setActivePage }) {
               <p className="text-xs text-slate-500">Filter candidate suitability by AI match percentage and CGPA</p>
             </div>
             <span className="text-xs font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full">
-              TechNova • Java Backend Openings
+              Google • Software Engineering Cohort
             </span>
           </div>
 

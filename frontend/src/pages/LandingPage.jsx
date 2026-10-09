@@ -64,11 +64,12 @@ export default function LandingPage({ setActivePage }) {
   ];
 
   const partners = [
-    { name: 'TechNova', domain: 'Enterprise Software', pkg: '₹6–8 LPA', logo: '🏢' },
-    { name: 'CloudSphere', domain: 'Cloud & DevOps', pkg: '₹8–10 LPA', logo: '☁️' },
-    { name: 'DataCore', domain: 'Big Data & AI', pkg: '₹6–7.5 LPA', logo: '📊' },
-    { name: 'InnoSoft', domain: 'Product Engineering', pkg: '₹5.5–7 LPA', logo: '🚀' },
-    { name: 'NextGen', domain: 'FinTech & Payments', pkg: '₹7–9 LPA', logo: '⚡' }
+    { name: 'Google', domain: 'Cloud & AI Research', pkg: '₹18–24 LPA', logo: '🌐' },
+    { name: 'Microsoft', domain: 'Enterprise Cloud & OS', pkg: '₹16–22 LPA', logo: '💻' },
+    { name: 'Amazon', domain: 'AWS Cloud & E-Commerce', pkg: '₹14–18 LPA', logo: '📦' },
+    { name: 'Oracle', domain: 'Java SE & Autonomous DB', pkg: '₹10–14 LPA', logo: '🏛️' },
+    { name: 'TCS', domain: 'Digital Cadre & Systems', pkg: '₹7–9 LPA', logo: '🏢' },
+    { name: 'Infosys', domain: 'Specialist Programmer', pkg: '₹8–10.5 LPA', logo: '🔷' }
   ];
 
   return (
@@ -256,7 +257,7 @@ export default function LandingPage({ setActivePage }) {
             </button>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
             {partners.map((p, idx) => (
               <div
                 key={idx}

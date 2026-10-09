@@ -12,69 +12,10 @@ import {
   ExternalLink
 } from 'lucide-react';
 
+import { REAL_COMPANIES } from '../services/mockData';
+
 export default function CompaniesPage({ setActivePage }) {
-  const [companies, setCompanies] = useState([
-    {
-      id: 1,
-      name: 'TechNova',
-      industry: 'Enterprise Software & Cloud Platforms',
-      location: 'Hyderabad, India',
-      website: 'https://technova.example.com',
-      logoUrl: '🏢',
-      description: 'TechNova is a premier global enterprise software leader building resilient cloud platforms, distributed fintech solutions, and high-concurrency payment gateways.',
-      averagePackage: 8.2,
-      totalHired: 45,
-      openings: 15
-    },
-    {
-      id: 2,
-      name: 'CloudSphere',
-      industry: 'Cloud Infrastructure & DevOps',
-      location: 'Bangalore, India',
-      website: 'https://cloudsphere.example.com',
-      logoUrl: '☁️',
-      description: 'CloudSphere accelerates global enterprise transformations with scalable multi-cloud architectures, kubernetes orchestration, and automated CI/CD pipelines.',
-      averagePackage: 10.0,
-      totalHired: 38,
-      openings: 10
-    },
-    {
-      id: 3,
-      name: 'DataCore',
-      industry: 'Big Data & AI Decision Analytics',
-      location: 'Pune, India',
-      website: 'https://datacore.example.com',
-      logoUrl: '📊',
-      description: 'DataCore builds modern telemetry data pipelines and enterprise AI analytical engines for Fortune 500 decision intelligence and predictive modeling.',
-      averagePackage: 7.5,
-      totalHired: 32,
-      openings: 8
-    },
-    {
-      id: 4,
-      name: 'InnoSoft',
-      industry: 'Product Engineering & Modern SaaS',
-      location: 'Chennai, India',
-      website: 'https://innosoft.example.com',
-      logoUrl: '🚀',
-      description: 'InnoSoft engineers next-generation SaaS digital platforms with high user delight, ultra-fast responsive interfaces, and reactive microservices.',
-      averagePackage: 6.5,
-      totalHired: 28,
-      openings: 10
-    },
-    {
-      id: 5,
-      name: 'NextGen Technologies',
-      industry: 'FinTech & Real-Time Payments',
-      location: 'Noida, India',
-      website: 'https://nextgen.example.com',
-      logoUrl: '⚡',
-      description: 'NextGen powers real-time cross-border financial transactions and high-frequency automated payment gateways with 99.999% SLA reliability.',
-      averagePackage: 9.0,
-      totalHired: 24,
-      openings: 12
-    }
-  ]);
+  const [companies, setCompanies] = useState(REAL_COMPANIES);
 
   useEffect(() => {
     async function loadCompanies() {

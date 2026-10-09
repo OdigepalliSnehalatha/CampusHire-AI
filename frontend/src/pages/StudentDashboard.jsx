@@ -66,9 +66,12 @@ export default function StudentDashboard({ setActivePage, onOpenChat }) {
     setTipIndex((prev) => (prev + 1) % CAREER_TIPS.length);
   };
 
+  const studentApps = applications.filter(a => !profile?.id || a.studentId === profile?.id || a.studentName === profile?.fullName);
+  const displayApps = studentApps.length > 0 ? studentApps : applications;
+
   const eligibleCount = jobs.filter(j => !j.minCgpa || (profile?.cgpa && profile.cgpa >= j.minCgpa)).length;
-  const shortlistedCount = applications.filter(a => a.status === 'SHORTLISTED' || a.status.includes('INTERVIEW')).length;
-  const selectedCount = applications.filter(a => a.status === 'SELECTED').length;
+  const shortlistedCount = displayApps.filter(a => a.status === 'SHORTLISTED' || a.status.includes('INTERVIEW')).length;
+  const selectedCount = displayApps.filter(a => a.status === 'SELECTED').length;
 
   return (
     <div className="min-h-screen bg-slate-50/60 pb-16">
@@ -367,7 +370,7 @@ export default function StudentDashboard({ setActivePage, onOpenChat }) {
           </div>
 
           <div className="space-y-4">
-            {applications.map((app) => (
+            {displayApps.map((app) => (
               <div
                 key={app.id}
                 className="p-4 rounded-2xl bg-slate-50/80 border border-slate-200/80 flex flex-col md:flex-row items-start md:items-center justify-between gap-4"

@@ -93,36 +93,96 @@ export default function LoginPage({ setActivePage }) {
             </div>
           </div>
 
-          {/* Sample Credentials Card for easy reference */}
+          {/* 5 Prototype Students & Roles Quick Selector */}
           <div className="relative z-10 pt-4 border-t border-white/15 space-y-2.5">
             <div className="text-[11px] font-bold text-pink-200 uppercase tracking-wider flex items-center justify-between">
-              <span>Quick Sample Credentials:</span>
-              <span className="text-[10px] text-indigo-300 font-normal">Click to pre-fill</span>
+              <span>Prototype Test Accounts:</span>
+              <span className="text-[10px] text-indigo-300 font-normal">Click to pre-fill form</span>
             </div>
-            <div className="grid grid-cols-3 gap-2">
-              <button
-                type="button"
-                onClick={() => fillSampleCredentials('student@campushire.ai', 'STUDENT')}
-                className="px-2 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-xs font-semibold text-center transition-all flex flex-col items-center"
-              >
-                <span className="text-sm">👨‍🎓</span>
-                <span className="text-[10px] text-pink-100 font-medium">Student</span>
-              </button>
+
+            {/* Prototype Students Grid */}
+            <div className="space-y-1.5">
+              <span className="text-[10px] text-pink-300/90 font-semibold block">5 Student Cohorts:</span>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5 max-h-36 overflow-y-auto pr-1">
+                <button
+                  type="button"
+                  onClick={() => fillSampleCredentials('alex@campushire.ai', 'STUDENT')}
+                  className="p-1.5 rounded-lg bg-white/10 hover:bg-white/20 border border-white/15 text-left transition-all group"
+                >
+                  <div className="flex items-center space-x-1.5">
+                    <span className="text-xs">👨‍💻</span>
+                    <span className="text-[11px] font-bold text-white group-hover:text-pink-200 truncate">Alex Chen</span>
+                  </div>
+                  <div className="text-[9px] text-pink-200/80 truncate">CSE • 8.6 • Java Backend</div>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => fillSampleCredentials('priya@campushire.ai', 'STUDENT')}
+                  className="p-1.5 rounded-lg bg-white/10 hover:bg-white/20 border border-white/15 text-left transition-all group"
+                >
+                  <div className="flex items-center space-x-1.5">
+                    <span className="text-xs">👩‍💻</span>
+                    <span className="text-[11px] font-bold text-white group-hover:text-pink-200 truncate">Priya Patel</span>
+                  </div>
+                  <div className="text-[9px] text-pink-200/80 truncate">IT • 9.2 • React/Cloud</div>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => fillSampleCredentials('rohit@campushire.ai', 'STUDENT')}
+                  className="p-1.5 rounded-lg bg-white/10 hover:bg-white/20 border border-white/15 text-left transition-all group"
+                >
+                  <div className="flex items-center space-x-1.5">
+                    <span className="text-xs">👨‍🔧</span>
+                    <span className="text-[11px] font-bold text-white group-hover:text-pink-200 truncate">Rohit Verma</span>
+                  </div>
+                  <div className="text-[9px] text-pink-200/80 truncate">ECE • 7.8 • IoT/Embedded</div>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => fillSampleCredentials('ananya@campushire.ai', 'STUDENT')}
+                  className="p-1.5 rounded-lg bg-white/10 hover:bg-white/20 border border-white/15 text-left transition-all group"
+                >
+                  <div className="flex items-center space-x-1.5">
+                    <span className="text-xs">👩‍🔬</span>
+                    <span className="text-[11px] font-bold text-white group-hover:text-pink-200 truncate">Ananya Sharma</span>
+                  </div>
+                  <div className="text-[9px] text-pink-200/80 truncate">AI/ML • 8.9 • PyTorch</div>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => fillSampleCredentials('kavya@campushire.ai', 'STUDENT')}
+                  className="p-1.5 rounded-lg bg-white/10 hover:bg-white/20 border border-white/15 text-left transition-all group"
+                >
+                  <div className="flex items-center space-x-1.5">
+                    <span className="text-xs">👩‍💼</span>
+                    <span className="text-[11px] font-bold text-white group-hover:text-pink-200 truncate">Kavya Reddy</span>
+                  </div>
+                  <div className="text-[9px] text-pink-200/80 truncate">EEE • 8.2 • QA/DevOps</div>
+                </button>
+              </div>
+            </div>
+
+            {/* Officer & Recruiter */}
+            <div className="flex items-center gap-2 pt-1">
               <button
                 type="button"
                 onClick={() => fillSampleCredentials('officer@campushire.ai', 'PLACEMENT_OFFICER')}
-                className="px-2 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-xs font-semibold text-center transition-all flex flex-col items-center"
+                className="flex-1 px-2 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 border border-white/20 text-xs font-semibold text-center transition-all flex items-center justify-center space-x-1.5"
               >
-                <span className="text-sm">👔</span>
-                <span className="text-[10px] text-pink-100 font-medium">Officer</span>
+                <span className="text-xs">👔</span>
+                <span className="text-[10px] text-pink-100 font-medium">Placement Officer</span>
               </button>
               <button
                 type="button"
                 onClick={() => fillSampleCredentials('recruiter@campushire.ai', 'RECRUITER')}
-                className="px-2 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-xs font-semibold text-center transition-all flex flex-col items-center"
+                className="flex-1 px-2 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 border border-white/20 text-xs font-semibold text-center transition-all flex items-center justify-center space-x-1.5"
               >
-                <span className="text-sm">🏢</span>
-                <span className="text-[10px] text-pink-100 font-medium">Recruiter</span>
+                <span className="text-xs">🌐</span>
+                <span className="text-[10px] text-pink-100 font-medium">Google Recruiter</span>
               </button>
             </div>
           </div>
