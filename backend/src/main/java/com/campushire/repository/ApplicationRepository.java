@@ -1,0 +1,18 @@
+package com.campushire.repository;
+
+import com.campushire.entity.Application;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.Optional;
+
+@Repository
+public interface ApplicationRepository extends JpaRepository<Application, Long> {
+    List<Application> findByStudentId(Long studentId);
+    List<Application> findByPlacementDriveId(Long driveId);
+    Optional<Application> findByStudentIdAndPlacementDriveId(Long studentId, Long driveId);
+    boolean existsByStudentIdAndPlacementDriveId(Long studentId, Long driveId);
+    List<Application> findByStatus(String status);
+    long countByStatus(String status);
+}
