@@ -8,162 +8,183 @@
 ![TailwindCSS](https://img.shields.io/badge/Tailwind-CSS-38bdf8.svg)
 ![Security](https://img.shields.io/badge/Spring%20Security-JWT-red.svg)
 ![Database](https://img.shields.io/badge/MySQL-8.0%20Ready-blue.svg)
+![Vite](https://img.shields.io/badge/Vite-6.0-purple.svg)
 
 ---
 
 ## 🌟 Executive Overview
-**CampusHire AI** is a startup-grade, modern AI-powered college placement management and career guidance platform built with **Java 21, Spring Boot, Spring Security, React, and MySQL**.
+**CampusHire AI** is a startup-grade, modern AI-powered college placement management and career guidance platform built with **Java 21, Spring Boot, Spring Security, React 19, Tailwind CSS, and MySQL**.
 
-Unlike traditional, clunky college ERP systems, CampusHire AI delivers a sleek, high-delight student and recruiter experience with soft gradients, glassmorphism cards, micro-interactions, responsive dashboards, and intelligent career acceleration tools.
+Designed to replace traditional, clunky college ERP systems, CampusHire AI combines student placement management, recruiter workflows, officer analytics, and an empathetic AI scholar assistant into an intuitive product with soft gradients, glassmorphism cards, micro-interactions, and real-time guidance.
+
+---
+
+## 🐰 CareerBuddy AI — Scholar Rabbit Companion
+One of the core highlights of CampusHire AI is **CareerBuddy**, an interactive AI career companion tailored for college students:
+
+- **Cute Scholar Rabbit Mascot 🐰🎓:** An ultra-cute bunny scholar wearing a graduation mortarboard cap with a golden swinging tassel, tall fluffy ears with pink inner pads, sparkling anime boba eyes, whiskers, and a diploma scroll.
+- **Lifelike Motion Illusion:** Fluid, pure CSS keyframe animations provide a gentle floating breathing bob, natural ear twitches, pendulum tassel swings, and waving paw motion with 100% transparent background preservation.
+- **Authenticated Visibility:** CareerBuddy appears **only when logged in** to an account. It remains completely hidden on public landing and login pages.
+- **Compact 5cm × 5cm Placement:** Positioned at the bottom-right corner (`5cm` length × `5cm` height) with a matching, constant-width typing bar directly beneath it (does not enlarge on click or focus).
+- **Reduced 12cm × 12cm Chat Window:** Clicking the rabbit or submitting a question opens a compact, neatly proportioned `12cm × 12cm` chat interface that does not overwhelm the screen.
+- **Dashboard Performance-Driven Feedback:** CareerBuddy dynamically analyzes the logged-in student's live dashboard performance (CGPA, profile completion %, department, target role) to deliver:
+  - Personalized encouragement highlighting qualification for 95%+ campus recruitment drives.
+  - 3 concrete, high-impact suggestions tailored to their academic bracket (Daily DSA discipline, backend microservices, resume ATS impact).
+  - Empathetic responses for placement anxiety, low CGPA concerns, or interview preparation.
 
 ---
 
 ## 🚀 Key Modules & Capabilities
 
-### 1. 🤖 AI Career Assistant — *"CampusBuddy AI / CareerBuddy"*
-- Floating assistant launcher button `[🤖 CareerBuddy]` accessible across all screens.
-- Custom SVG Mascot: cute small AI companion robot wearing a graduation cap, holding a career roadmap.
-- Empathetic, student-focused personality that handles placement anxieties (*"I'm scared I won't get placed"*, *"My CGPA is low"*, *"I failed my interview"*) with realistic, constructive guidance.
-- AI abstraction architecture (`AiCareerService`, `DemoAiCareerService`, `GeminiAiCareerService`) clearly labeled **"AI Demo Mode"** locally, ready for one-step connection to Google Gemini or OpenAI APIs.
+### 1. 📊 Dynamic Student Dashboard & Left Sidebar
+- **Dynamic Name Greetings:** Greets the active student dynamically (e.g. `Hello, Priya! 👋`, `Hello, Alex! 👋`).
+- **Left-Side Navigation Sidebar:** Clean, horizontal navigation links with active pill states, student profile snapshot, CGPA tag, and sign-out controls.
+- **Real-Time Placement Season KPIs:** Circular gauge for profile readiness, active eligible drives count, applied tracker, shortlisted interviews, and offers.
+- **Daily Career Tip:** Rotating practical placement advice updated daily.
 
-### 2. 🎯 AI Skill Gap Analysis
-- Role-specific benchmarking (e.g., *Java Backend Developer*, *Full Stack Engineer*, *Data Analyst*).
+### 2. 🔐 Secure Authentication & Multi-Role Support
+- **JWT Authentication:** Password hashing with BCrypt and stateless JSON Web Token authorization.
+- **Three Supported Roles:**
+  - `STUDENT`: Job discovery, roadmap progress, interview practice, resume scoring.
+  - `PLACEMENT_OFFICER`: Batch-wide analytics, company drives management, applicant review.
+  - `RECRUITER`: Drive management, applicant shortlisting, interview status promotion.
+- **5 Prototype Students:** Pre-configured test accounts representing diverse engineering departments:
+  - **Alex Chen** (CSE, 8.6 CGPA, Java Backend Developer)
+  - **Priya Patel** (IT, 9.2 CGPA, Full Stack React & Cloud Engineer)
+  - **Rohit Verma** (ECE, 7.8 CGPA, Embedded Systems & IoT Engineer)
+  - **Ananya Sharma** (Data Science, 8.4 CGPA, AI/ML Specialist)
+  - **Kavya Reddy** (CSE, 8.9 CGPA, DevOps & Cloud Engineer)
+
+### 3. 🎯 AI Skill Gap Analysis
+- Role-specific benchmarking for in-demand tech roles (*Java Backend Developer*, *Full Stack Engineer*, *Cloud DevOps*).
 - Visual progress bars comparing Current Skills vs. Industry Demand.
-- Missing skills detection with prioritized, recommended learning order sequence.
+- Prioritized missing skill recommendations with recommended learning order.
 
-### 3. 🗺️ Personalized Learning Roadmap — *"My Placement Roadmap"*
-- 8-step structured journey:
+### 4. 🗺️ Placement Roadmap — *"My Placement Roadmap"*
+- 8-step structured journey from core fundamentals to interview mastery:
   1. *Java Fundamentals* (Completed)
   2. *Object-Oriented Programming* (Completed)
   3. *Java Collections Framework* (Completed)
   4. *SQL & Relational Databases* (In Progress)
-  5. *Spring Boot Core*
-  6. *REST APIs & JPA*
-  7. *Portfolio Project Deployment*
+  5. *Spring Boot Core & REST APIs*
+  6. *Spring Data JPA & Hibernate*
+  7. *Full-Stack Portfolio Project*
   8. *Technical Mock Interviews*
-- Interactive milestone status toggling with celebratory confetti effects.
+- Celebratory confetti effects upon completing milestones.
 
-### 4. 📄 AI Resume Assistant (ATS Scorer)
-- Resume upload simulator and evaluation engine.
-- ATS Score calculation (e.g., 74/100) with percentile ranking.
-- Section completeness audit, high-impact action-verb recommendations, and keyword density suggestions.
+### 5. 📄 AI Resume Assistant (ATS Scorer)
+- ATS score simulator (e.g., 78/100) with percentile rating.
+- Section-by-section audit, keyword density check, and action-verb improvements.
 
-### 5. 🎤 AI Interview Coach
-- Interactive mock technical interview simulator.
-- Question prompter based on role and difficulty (*Beginner, Intermediate, Advanced*).
-- Multi-dimensional rubric scoring across **Concept Understanding**, **Correctness**, **Clarity**, and **Confidence**.
-- Constructive feedback, ideal talking points, and automated next-question progression.
+### 6. 🎤 AI Interview Coach
+- Interactive technical mock interview simulator.
+- Difficulty levels (*Beginner, Intermediate, Advanced*) across Java, Backend, React, and SQL.
+- Rubric scoring across **Concept Understanding**, **Correctness**, **Clarity**, and **Confidence**.
+- Model answer pointers and automatic progression to the next question.
 
-### 6. 💼 Placement Drives & Smart Job Matching
-- Smart recommendation engine calculating match score % based on CGPA criteria, department eligibility, graduation batch, and required technical skills.
-- One-click application modal with celebratory feedback.
-- Rich filters by department, salary package (₹ LPA), and minimum CGPA.
+### 7. 💼 Smart Job Matching & Top Companies
+- Integrated top tier corporate partners: **Google**, **Microsoft**, **Amazon**, **Oracle**, **TCS Digital**, **Infosys**, **Cognizant**, **Wipro**, and high-growth startups.
+- Automated match score % calculated using CGPA eligibility, department, graduation year, and tech stack.
+- One-click application pipeline tracking: `Applied` ➔ `Shortlisted` ➔ `Technical Round` ➔ `HR Round` ➔ `Selected`.
 
-### 7. ⏱️ Application Tracking Pipeline
-- 5-stage timeline progression: `Applied` ➔ `Shortlisted` ➔ `Technical Interview` ➔ `HR Interview` ➔ `Selected / Offer`.
-- Interview schedule details, meeting links, and recruiter notes.
-
-### 8. 🏆 Milestone Achievements (Lightweight Gamification)
-- Unlocked badges for *Profile Complete 🏆*, *First Application 🎯*, *First Project Added 💻*, *Resume Ready 📄*, *Interview Ready 🎤*, and *Placement Ready 🚀*.
-
-### 9. 📊 Placement Officer Executive Dashboard
-- Interactive charts powered by **Recharts**:
-  - Department-wise placement rate & student cohort distribution.
-  - Monthly hiring velocity and offers momentum.
-  - Top corporate partner hiring metrics and average packages.
-- Student cohort tracking directory.
-
-### 10. 🏢 Recruiter Command Hub
-- Candidate review pipeline, filtering by match percentage and GPA.
-- Interactive status promotions (*Schedule Tech Round*, *Release Offer*).
-- Post new campus drive opening modal.
-
----
-
-## 👥 Demo Accounts (1-Click Login Available)
-
-CampusHire AI includes a **1-Click Demo Role Switcher** right in the top navigation bar:
-
-| Role | Name | Email | Password |
-|---|---|---|---|
-| **👨‍🎓 Student** | Alex Chen (CSE, 8.4 CGPA) | `student@campushire.ai` | `password123` |
-| **👔 Placement Officer** | Dr. Rajesh Sharma | `officer@campushire.ai` | `password123` |
-| **🏢 Recruiter** | Sarah Jenkins (TechNova) | `recruiter@campushire.ai` | `password123` |
+### 8. 📈 Placement Officer Analytics
+- Visual analytics powered by **Recharts**:
+  - Department-wise placement rate and batch hiring momentum.
+  - Top hiring partners and average package distribution (₹ LPA).
+  - Complete student directory with filterable CGPA and status columns.
 
 ---
 
 ## 🏛️ Clean Java Backend Architecture
 
-The backend adheres strictly to clean, readable, beginner/intermediate friendly Java principles without unnecessary microservices complexity:
+The backend is built with clean, understandable Java patterns without unnecessary microservices overhead:
 
 ```
 backend/src/main/java/com/campushire/
   ├── controller/      # REST API Endpoints (Auth, Student, Jobs, Applications, AI, Officer)
-  ├── service/         # Business logic layer (Auth, Student, Drives, AI Career, Analytics)
-  ├── repository/      # Spring Data JPA interfaces
-  ├── entity/          # Relational JPA entities (User, StudentProfile, Company, Drive, etc.)
-  ├── dto/             # Data Transfer Objects & request/response payloads
-  ├── security/        # JWT Token Provider, Auth Filter, SecurityConfig
-  ├── exception/       # GlobalExceptionHandler, Custom Exceptions (400, 401, 403, 404, 500)
-  └── config/          # DataSeeder (seeds rich realistic demo data), CORS configuration
+  ├── service/         # Business logic layer (AuthService, StudentService, DriveService, AiCareerService)
+  ├── repository/      # Spring Data JPA Repository interfaces
+  ├── entity/          # Relational JPA entities (User, StudentProfile, Company, PlacementDrive, Application)
+  ├── dto/             # Clean Data Transfer Objects & API payloads
+  ├── security/        # JWT Token Provider, JwtAuthenticationFilter, SecurityFilterChain
+  ├── exception/       # GlobalExceptionHandler with standard HTTP error responses
+  └── config/          # DataSeeder (seeds students, companies, and drives), CORS configuration
 ```
+
+---
+
+## 👥 Prototype Accounts (Email & Password Login)
+
+CampusHire AI features dedicated accounts with sample data for evaluation:
+
+| Role | Name | Email | Password |
+|---|---|---|---|
+| **👨‍🎓 Student 1** | Alex Chen (CSE, 8.6 CGPA) | `alex@campushire.ai` | `password123` |
+| **👩‍🎓 Student 2** | Priya Patel (IT, 9.2 CGPA) | `priya@campushire.ai` | `password123` |
+| **👨‍🎓 Student 3** | Rohit Verma (ECE, 7.8 CGPA) | `rohit@campushire.ai` | `password123` |
+| **👩‍🎓 Student 4** | Ananya Sharma (DS, 8.4 CGPA) | `ananya@campushire.ai` | `password123` |
+| **👩‍🎓 Student 5** | Kavya Reddy (CSE, 8.9 CGPA) | `kavya@campushire.ai` | `password123` |
+| **👔 Placement Officer** | Dr. Rajesh Sharma | `officer@campushire.ai` | `password123` |
+| **🏢 Recruiter** | Sarah Jenkins (Google / TechNova) | `recruiter@campushire.ai` | `password123` |
+
+*The login page includes convenient 1-click test credentials to pre-fill the form instantly.*
 
 ---
 
 ## 🛠️ How to Run Locally
 
 ### Prerequisites
-- **Java 21** (or Java 17+)
+- **Java 17 or Java 21**
 - **Node.js 18+** & npm
+- **Maven** (bundled via `./mvnw.cmd`)
 
-### Option 1: One-Click Startup (Windows)
-1. Double click [`start-backend.bat`](file:///C:/Users/odige/.gemini/antigravity/scratch/CampusHire-AI/start-backend.bat) to launch the Spring Boot backend on **port 8080**.
-2. Double click [`start-frontend.bat`](file:///C:/Users/odige/.gemini/antigravity/scratch/CampusHire-AI/start-frontend.bat) to launch the React frontend on **port 5173**.
-
-### Option 2: Running via Terminal
-
-#### Backend (Spring Boot):
+### 1. Start Backend (Spring Boot)
 ```bash
 cd backend
 mvnw.cmd spring-boot:run
 ```
-*The backend automatically starts with an in-memory database and loads all seed data for students, companies, drives, and roadmaps!*
+- Server starts on **`http://localhost:8080`**.
+- Automatically seeds all prototype students, companies, job drives, and interview questions in memory.
+- Root route `http://localhost:8080/` automatically redirects to the active frontend port!
 
-#### Frontend (React + Vite):
+### 2. Start Frontend (React + Vite)
 ```bash
 cd frontend
+npm install
 npm run dev
 ```
-Open **`http://localhost:5173`** in your browser.
+- Application opens on **`http://localhost:5174`** (or `http://localhost:5173`).
 
 ---
 
 ## 🗄️ MySQL Database Setup (Optional)
 
-By default, the backend runs with an in-memory H2 database for zero-configuration instant development.
+The application defaults to an in-memory H2 database for zero-friction local setup.
 
-To connect to your local **MySQL** server:
+To switch to **MySQL**:
 1. Ensure MySQL is running on `localhost:3306`.
-2. Execute the database script located at:
+2. Run the provided database schema script:
    [`backend/src/main/resources/campushire_schema_and_data.sql`](file:///C:/Users/odige/.gemini/antigravity/scratch/CampusHire-AI/backend/src/main/resources/campushire_schema_and_data.sql)
-3. Run the backend with the `mysql` profile:
+3. Launch with the `mysql` Spring profile:
 ```bash
 mvnw.cmd spring-boot:run -Dspring-boot.run.profiles=mysql
 ```
-Or edit [`backend/src/main/resources/application.properties`](file:///C:/Users/odige/.gemini/antigravity/scratch/CampusHire-AI/backend/src/main/resources/application.properties) with your MySQL credentials.
+Or customize credentials in [`backend/src/main/resources/application.properties`](file:///C:/Users/odige/.gemini/antigravity/scratch/CampusHire-AI/backend/src/main/resources/application.properties).
 
 ---
 
-## 🤖 Connecting External AI (Google Gemini / OpenAI)
-CampusHire AI features an **AI-ready abstraction**.
-To connect real Google Gemini models:
-1. Set the environment variable:
+## 🤖 Connecting Live AI Models (Google Gemini)
+
+CampusHire AI includes an **AI Provider Abstraction**. By default, it operates in **"AI Demo Mode"** with rich empathetic career logic.
+
+To connect live **Google Gemini**:
 ```bash
-set GEMINI_API_KEY=your_gemini_api_key_here
+set GEMINI_API_KEY=your_actual_gemini_api_key
 ```
-2. When the backend starts, [`GeminiAiCareerService`](file:///C:/Users/odige/.gemini/antigravity/scratch/CampusHire-AI/backend/src/main/java/com/campushire/service/GeminiAiCareerService.java) automatically detects the key and switches from **"AI Demo Mode"** to live Gemini processing!
+When restarted, [`GeminiAiCareerService`](file:///C:/Users/odige/.gemini/antigravity/scratch/CampusHire-AI/backend/src/main/java/com/campushire/service/GeminiAiCareerService.java) detects the environment variable and seamlessly routes career chat and interview coaching requests through Gemini.
 
 ---
 
 ## 📄 License
 Created for academic excellence & campus placement enablement.
+All rights reserved © 2026 CampusHire AI.
